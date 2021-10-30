@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg">
+    <a href="#" class="navbar-brand">Logo</a>
+    <div class="navbar-title">
+        <h1>{{ title }}</h1>
+        <hr>
+        <p *ngIf = "subtitle">Productos ecológicos</p>
+    </div>
+    <div class="navbar_buttons-container">
+        <p-menu class="menu" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true" [model]="items"
+                appendTo="body">
+        </p-menu>
+        <button class="navbar-button" type="button" pButton icon="pi pi-list" label="Menu" (click)="menu.toggle($event)"></button>
+        <button class="navbar-button button-cart" routerLink="/carrito">
+            <i class="uil uil-shopping-cart-alt"></i>
+        </button>
+    </div>
+</nav>
