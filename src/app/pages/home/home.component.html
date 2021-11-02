@@ -1,0 +1,15 @@
+
+    <div class="container-home">
+        <h1>¡Bienvenidos!</h1>
+        <p>A un consumo consciente, sostenible y responsable</p>
+        <div class="container">
+            <div class="row">
+                <app-components class="col-lg-3 col-sm-6 img-container" *ngFor="let image of images" [product]=image.path></app-components>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3 container-button">
+                <button class="btn" routerLink="/products">ECO TIENDA</button>
+            </div>
+        </div>
+    </div>

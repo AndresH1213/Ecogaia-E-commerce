@@ -1,0 +1,130 @@
+@import url('../../../styles.css');
+
+.container-individual {
+    background: var(--bg-first);
+    background: var(--bg-first-linear);
+    height: var(--page-height);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.product-container {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.image {
+    background: url("../../../assets/images/1617958201228-calabaza.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-size: cover;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+.description-container {
+    align-content: center;
+    background-color: #F1DFC6;
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    font-size: var(--font-size-md);
+}
+.description-container::before {
+    content: '';
+    position: absolute;
+    width: 50vw;
+    background-color: #F1DFC6;
+    height: 12vh;
+    top: 0px;
+}
+
+.description-container h1 {
+    font-size: var(--font-size-lg);
+    font-family: var(--font-titles);
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.description-container hr {
+    color: black;
+    background-color: black;
+    width:  60%;
+    height: 2px;
+}
+
+.description-container li {
+    text-align: left;
+}
+
+.product-properties {
+    display: grid;
+    width: 70%;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+    place-content: center;
+    place-items: center;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.input-cant {
+    display: flex;
+    grid-column: 1/2;
+}
+
+.cant-btn {
+    border: none;
+    background-color: white;
+    color: var(--color-button);
+    height: 100%;
+    margin: 0px;
+}
+
+.input {
+    width: 90%;
+    height: 100%;
+    border: none;
+}
+
+.input-label {
+    background-color: var(--color-button);
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-cart {
+    background-color: var(--color-button);
+    border: none;
+    color: white;
+    height: 100%;
+    font-size: var(--font-size-md);
+    font-family: var(--font-titles);
+    font-weight: 600;
+    width: 90%;
+}
+.btn-cart > i {
+    font-size: var(--font-size-lg);
+}
+
+@media only screen and (max-width: 760px) {
+    .container-individual {
+        grid-template-columns: 1fr;
+    }
+
+    .description-container::before {
+        display: none;
+    }
+}

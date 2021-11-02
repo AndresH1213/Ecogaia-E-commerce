@@ -3,16 +3,17 @@
         <div class="col-lg-3 col-sm-6 columns-description" *ngFor="let item of [1,2,3,4]">
             <div class="space-image"></div>
             <div class="description-box">
-                <div class="description-img" style="background: url({{product}});
-                background-repeat: no-repeat;
-                background-size: 100% 100%;
-                background-size: cover;
-                "></div>
+                <div class="description-img"
+                     [ngStyle]="{
+                        'background': productImg,
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'cover'
+                     }"></div>
                 <div class="description-content">
                     <h2>Cepillo de dientes de bambu</h2>
                     <p>$9.999</p>
-                    <div class="descripton-buttons">
-                        <button class="btn" routerLink='/productos/id'><i class="pi pi-plus-circle"></i></button>
+                    <div class="description-buttons">
+                        <button class="btn" routerLink='/products/id'><i class="pi pi-plus-circle"></i></button>
                         <button class="btn"><i class="pi pi-shopping-cart"></i></button>
                     </div>
                 </div>

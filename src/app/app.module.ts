@@ -4,16 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-import { AboutUsComponent } from './about-us/about-us.component';
+import { PagesModule } from './pages/pages.module';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AboutUsComponent
+    NopagefoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PagesModule,
     SharedModule
   ],
   providers: [],

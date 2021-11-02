@@ -11,7 +11,7 @@ import { filter, map, tap } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit{
   
-  title: string= '';
+  title: string= 'ECOGAIA';
   subtitle: boolean = false;
   
   constructor( private router: Router) {}
@@ -26,13 +26,13 @@ export class NavbarComponent implements OnInit{
       map( eventdata => {
         this.subtitle = false;
         switch (eventdata.url) {
-          case '/productos':
+          case '/products':
             return 'PRODUCTOS'
           case '/auth/ingresar':
             return 'LOG IN'
           case '/auth/registrarse':
             return 'SIGN IN'
-          case '/nosotros':
+          case '/about-us':
             return 'NOSOTROS'
           case '/auth/ingresar':
             return 'LOG IN'
@@ -57,27 +57,27 @@ export class NavbarComponent implements OnInit{
       {
         label: 'Productos',
         icon: 'pi pi-fw pi-slack',
-        routerLink: '/productos'
+        routerLink: '/products'
       },
       {
         label: 'Ordenes',
         icon: 'pi pi-ticket',
-        routerLink: '/ordenes'
+        routerLink: '/orders'
       },
       {
         label: 'Sobre Nosotros',
         icon: 'pi pi-globe',
-        routerLink: '/nosotros'
+        routerLink: '/about-us' 
       },
       {
         label: 'Ingresar',
         icon: 'pi pi-sign-in',
-        routerLink: '/auth/ingresar'
+        routerLink: '/auth/login'
       },
       {
         label: 'Registrarse',
         icon: 'pi pi-user',
-        routerLink: '/auth/registrarse'
+        routerLink: '/auth/signup'
       }
     ]
   }

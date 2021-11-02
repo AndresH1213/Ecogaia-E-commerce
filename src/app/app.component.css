@@ -1,17 +1,1 @@
-@import url(../styles.css);
 
-.nav-container {
-    position: fixed;
-    background: var(--bg-first);
-    background: var(--bg-first-linear);
-    backdrop-filter: blur(5px);
-    width: 100vw;
-    height: max-content;
-}
-.separator {
-    height: calc(12vh + 20px);
-}
-
-app-navbar {
-    z-index: 9999;
-}

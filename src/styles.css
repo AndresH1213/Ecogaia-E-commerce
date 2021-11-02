@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import '~normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;1&display=swap');
@@ -6,16 +7,16 @@
 
 :root {
     /* colors */
-    --bg-first: rgb(241,237,219);
-    --bg-first-linear: linear-gradient(51deg, rgba(241,237,219,1) 7%, rgba(232,231,225,0.9556197478991597) 31%, rgba(255,253,243,1) 49%, rgba(232,231,225,1) 69%, rgba(241,237,219,1) 94%);
+    --bg-first: transparent;
+    --bg-first-linear: transparent;
     --bg-nav: #F4E5D7;
     --bg-second: #E9E5E1;
     --color-text-primary: #896F5A;
     --color-text-secondary: whitesmoke;
     --color-button: #91785A;
     --color-button-hover: #bbb6b1;
-    --color-ribbon-bg: #E0CAAC;
-    --page-height: calc(100vh - 12vh - 20px);
+    --color-ribbon-bg: rgba(219, 179, 105, 0.6);
+    --page-height: calc(100vh - 12vh);
 
     /* font */
     --font-titles: 'Libre Baskerville', Verdana, Serif;
@@ -25,13 +26,38 @@
     
 }
 
-body, html {
+body {
     padding: 0px;
     margin: 0px;
+    height: max-content;
     box-sizing: border-box;
-    background: var(--bg-first);
-    background: var(--bg-first-linear);
-    background-repeat: no-repeat;
-    background-size: cover;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	background: linear-gradient(-45deg, #FAE5D3,#FEF9E7, whitesmoke,white);
+	background-size: 400% 400%;
+	-webkit-animation: gradient 12s ease infinite;
+	        animation: gradient 12s ease infinite;
 }
+
+@-webkit-keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+

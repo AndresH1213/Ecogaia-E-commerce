@@ -6,16 +6,16 @@ import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
     {
-        path: 'registrarse',
+        path: 'signup',
         component: SignInComponent
     },
     {
-        path: 'ingresar',
+        path: 'login',
         component: LogInComponent
     },
     {
         path: '**',
-        redirectTo: 'ingresar'
+        redirectTo: 'signup'
     }
 ]
 

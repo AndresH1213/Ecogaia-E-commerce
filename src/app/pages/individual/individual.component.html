@@ -1,0 +1,80 @@
+<div class="container-individual">
+    <section class="product-container">
+        <div class="image"></div>
+        <form class="product-properties form-group" [formGroup]="productForm">
+                <label for="colores" class="input-label">Color</label>
+                <select name="colores" 
+                        class="input form-control"
+                        formControlName="color">
+                    <option value="">Selecccione un color...</option>
+                    <option *ngFor="let item of colors"
+                            [value]="item"
+                            class="color"
+                            >{{item}}</option>
+                </select>
+                <label for="dureza" class="input-label">Dureza</label>
+                <select name="durezas"
+                        class="input form-control"
+                        formControlName="dureza" >
+                    <option value="">Seleccione la dureza...</option>
+                    <option *ngFor="let dureza of durezas" value="dureza">
+                        {{dureza}}
+                    </option>
+                </select>
+            <div class="input-cant">
+                <span class="input-group-btn">
+                    <button (click)="changeValue(-1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-minus"></i>
+                    </button>
+                </span>
+                <input type="number" 
+                       class="form-control input"
+                       placeholder="cant"
+                       max=100
+                       min=0
+                       (ngModelChange)="onChange($event)">
+            
+                <span class="input-group-btn">
+                    <button (click)="changeValue(1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-plus"></i>
+                    </button>
+                </span>
+            </div>
+            <button type="button" class="btn-cart">
+                Añadir al carrito
+                <i class="uil uil-shopping-cart-alt"></i>
+            </button>
+        </form>
+    </section>
+    <section class="description-container">
+        <h1>Cepillo Dental de Bambu</h1>
+        <hr>
+        <h2>$15.000</h2>
+        <p class="description-subtitle">
+            ¿Sabías que todos los cepillos de dientes que has usado en tu vida aún existe?
+            Te presentamos una alternativa sostenible y amigable con el medio ambiente.
+        </p>
+        <ul>
+            <li>
+                <p>Mango 100% de bambú que lo hace biodegradable</p>
+            </li>
+            <li>
+                <p>Cerdas de nylon 6,  reciclables, libres de BPA que te proporcionarán una buena limpieza bucal.</p>
+            </li>
+        </ul>
+        <p>
+            No sentirás el cambio debido a que el bambú no produce ningún sabor y es naturalmente es antibacteriano por eso resiste la humedad haciéndolo una alternativa ideal para dejar el cepillo de plástico. 
+            Se recomienda cambiarlo cada 3 meses.
+            <br>
+            Visita nuestro instagram @ecogaia.co para saber como reutilizarlo.
+            <br><br>
+            ¡Contamos con registro Sanitario Invima!
+            <br>
+            NO: INVIMA 2021DM-0023057
+        </p>
+    </section>
+</div>

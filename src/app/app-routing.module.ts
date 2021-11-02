@@ -1,26 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { PagesRoutingModule } from './pages/pages.routes';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 const routes: Routes = [
     {
-        path: '',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-    },
-    {
-        path: 'productos',
-        loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
-    },
-    {
-        path: 'ordenes',
+        path: 'orders',
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
     },
     {
-        path: 'carrito',
+        path: 'cart',
         loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)
-    },
-    {
-        path: 'nosotros',
-        loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule)
     },
     {
         path: 'auth',
@@ -28,12 +18,15 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: ''
+        component: NopagefoundComponent
     }
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [
+        RouterModule.forRoot(routes),
+        PagesRoutingModule,
+    ],
     exports: [RouterModule]
 })
 export class AppRoutingModule {  }
