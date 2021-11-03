@@ -11,5 +11,8 @@ export class LogInComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  googleLogin() {
+    //TODO: implement this authentication
+  }
 
 }

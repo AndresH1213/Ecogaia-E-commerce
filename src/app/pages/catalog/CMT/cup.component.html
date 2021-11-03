@@ -1,7 +1,7 @@
 <div class="container-individual">
     <section class="product-container">
         <div class="image"></div>
-        <form class="product-properties form-group">
+        <form class="product-properties form-group" (ngSubmit)="addCart()">
             <div class="input-cant">
                 <span class="input-group-btn">
                     <button (click)="changeValue(-1)"
@@ -13,10 +13,10 @@
                 <input type="number" 
                        class="form-control input"
                        placeholder="cant"
+                       [(ngModel)]="selected.cant"
+                       name="cant"
                        max=100
-                       min=0
-                       (ngModelChange)="onChange($event)">
-            
+                       min=1>            
                 <span class="input-group-btn">
                     <button (click)="changeValue(1)"
                             class="cant-btn"
@@ -25,13 +25,15 @@
                     </button>
                 </span>
             </div>
-            <button type="button" class="btn-cart">
+            <button type="submit" class="btn-cart">
                 Añadir al carrito
                 <i class="uil uil-shopping-cart-alt"></i>
             </button>
         </form>
+        <div class="previous-page" routerLink="/product/PPG"><i class="pi pi-chevron-left"></i></div>
     </section>
     <section class="description-container description-cup">
+        <div class="next-page" routerLink="/product/CCB"><i class="pi pi-chevron-right"></i></div>
         <h1>COPA MENSTRUAL</h1>
         <hr>
         <h2>$60.000</h2>
@@ -43,7 +45,7 @@
             de quitártela, puedes llevarla puesta hasta doce horas seguidas, realizando todas las actividades que 
             regularmente haces.
         </p>
-        <br><br>
+        <br>
         <ul>
             <li>
                 Es reutilizable por muchos ciclos ya que tiene una vida útil de hasta 10 años

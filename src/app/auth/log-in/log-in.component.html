@@ -14,6 +14,10 @@
                     <input name="password" type="text" class="input-form" placeholder="password">
                 </div>
                 <button class="btn btn-login">Log in</button>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-goolge mt-2" 
+                            (click)="googleLogin()">Google</button>
+                </div>
                 <div class="form-group row">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary pull-left p-t-0">
@@ -23,7 +27,6 @@
                             class="filled-in chk-col-light-blue">
                             <label for="checkbox-signup"> Remember me </label>
                         </div>
-                        <a class="text-dark pull-right"> Forgot pwd?</a> 
                     </div>
                 </div>
             </form>
