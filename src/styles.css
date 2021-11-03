@@ -31,10 +31,10 @@ body {
     margin: 0px;
     height: max-content;
     box-sizing: border-box;
-	background: linear-gradient(-45deg, #FAE5D3,#FEF9E7, whitesmoke,white);
+	background: linear-gradient(-45deg, #FAE5D3,#FEF9E7, rgb(255, 252, 252),white);
 	background-size: 400% 400%;
-	-webkit-animation: gradient 12s ease infinite;
-	        animation: gradient 12s ease infinite;
+	-webkit-animation: gradient 8s ease infinite;
+	        animation: gradient 8s ease infinite;
 }
 
 @-webkit-keyframes gradient {

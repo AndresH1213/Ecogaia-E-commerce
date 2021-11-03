@@ -18,7 +18,7 @@
 }
 
 .image {
-    background: url("../../../assets/images/1617958201228-calabaza.png");
+    background: url("/assets/images/1617958201228-calabaza.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-size: cover;
@@ -63,6 +63,13 @@
 
 .description-container li {
     text-align: left;
+}
+
+.description-cup {
+    overflow-y: scroll;
+}
+.description-cup::-webkit-scrollbar {
+    display: none;
 }
 
 .product-properties {

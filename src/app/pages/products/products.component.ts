@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-catalog',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  productImg = 'url(../../../assets/images/BRDM7234.JPG)'
+  // productImg = 'url(../../../assets/images/BRDM7234.JPG)';
+  products: Product[] = [];
   constructor() { }
 
   ngOnInit(): void {
+    this.products = [
+      {code:'CDD', imgUrl: './assets/images/BRDM7234.JPG', name:'Cepillo de dientes de bambú', price: 15000},
+      {code:'PPG', imgUrl: './assets/images/notfound.png', name:'Pitillo plegable', price: 25000},
+      {code:'CMT', imgUrl: './assets/images/BRDM7234.JPG', name:'Copa menstrual', price: 60000},
+      {code:'CCB', imgUrl: './assets/images/notfound.png', name:'Cepillo de cabello de bambú', price: 20000},
+    ]
   }
 
 }

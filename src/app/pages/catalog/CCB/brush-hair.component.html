@@ -1,0 +1,51 @@
+<div class="container-individual">
+    <section class="product-container">
+        <div class="image"></div>
+        <form class="product-properties form-group">
+            <div class="input-cant">
+                <span class="input-group-btn">
+                    <button (click)="changeValue(-1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-minus"></i>
+                    </button>
+                </span>
+                <input type="number" 
+                       class="form-control input"
+                       placeholder="cant"
+                       max=100
+                       min=0
+                       (ngModelChange)="onChange($event)">
+            
+                <span class="input-group-btn">
+                    <button (click)="changeValue(1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-plus"></i>
+                    </button>
+                </span>
+            </div>
+            <button type="button" class="btn-cart">
+                Añadir al carrito
+                <i class="uil uil-shopping-cart-alt"></i>
+            </button>
+        </form>
+    </section>
+    <section class="description-container">
+        <h1>CEPILLO DE CABELLO DE BAMBÚ</h1>
+        <hr>
+        <h2>$20.000</h2>
+        <p class="description-subtitle">
+            Un claro ejemplo de un producto que te cuida a ti y también al planeta.
+        </p>
+        <p>
+            El Cepillo de bambú para el cabello es un sustituto lleno de ventajas, ya que es biodegradable,
+             sus cerdas anchas y suaves cuidan tu cabello sin reventarlo, no genera friz, acondiciona estimula
+             el crecimiento del cabello. 
+            <br><br>
+            Una opción amigable con el medio ambiente.
+            <br>
+            Medidas: 8cm x 25cm
+        </p>
+    </section>
+</div>

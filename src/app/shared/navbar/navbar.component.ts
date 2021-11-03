@@ -28,14 +28,10 @@ export class NavbarComponent implements OnInit{
         switch (eventdata.url) {
           case '/products':
             return 'PRODUCTOS'
-          case '/auth/ingresar':
-            return 'LOG IN'
           case '/auth/registrarse':
             return 'SIGN IN'
           case '/about-us':
             return 'NOSOTROS'
-          case '/auth/ingresar':
-            return 'LOG IN'
           case '/carrito':
             return 'CART'
           default:

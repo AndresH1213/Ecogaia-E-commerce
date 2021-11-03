@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Dropdown } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-individual',
-  templateUrl: './individual.component.html',
-  styleUrls: ['./individual.component.css']
+  templateUrl: './toothbrush.component.html',
+  styleUrls: ['../catalog.component.css']
 })
-export class IndividualComponent implements OnInit {
+export class ToothbrushComponent implements OnInit {
 
   public colors: string[] = [];
   public durezas: number[] = [];

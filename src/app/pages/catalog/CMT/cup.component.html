@@ -1,0 +1,102 @@
+<div class="container-individual">
+    <section class="product-container">
+        <div class="image"></div>
+        <form class="product-properties form-group">
+            <div class="input-cant">
+                <span class="input-group-btn">
+                    <button (click)="changeValue(-1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-minus"></i>
+                    </button>
+                </span>
+                <input type="number" 
+                       class="form-control input"
+                       placeholder="cant"
+                       max=100
+                       min=0
+                       (ngModelChange)="onChange($event)">
+            
+                <span class="input-group-btn">
+                    <button (click)="changeValue(1)"
+                            class="cant-btn"
+                            type="button">
+                        <i class="pi pi-plus"></i>
+                    </button>
+                </span>
+            </div>
+            <button type="button" class="btn-cart">
+                Añadir al carrito
+                <i class="uil uil-shopping-cart-alt"></i>
+            </button>
+        </form>
+    </section>
+    <section class="description-container description-cup">
+        <h1>COPA MENSTRUAL</h1>
+        <hr>
+        <h2>$60.000</h2>
+        <p class="description-subtitle">
+            Ama tus días
+        </p>
+        <p>
+            Con la copa menstrual puedes practicar deporte, salir, dormir, puedes ir al baño con ella sin necesidad 
+            de quitártela, puedes llevarla puesta hasta doce horas seguidas, realizando todas las actividades que 
+            regularmente haces.
+        </p>
+        <br><br>
+        <ul>
+            <li>
+                Es reutilizable por muchos ciclos ya que tiene una vida útil de hasta 10 años
+            </li>
+            <li>
+                100% Hipoalergénica y bio-compatible
+            </li>
+            <li>
+                No absorbe, por ende no reseca, no deja fibras y no genera cambios en el pH.
+            </li>
+            <li>
+                Protección por hasta 12 horas seguidas  (varía según la abundancia de flujo de cada quien)
+            </li>
+            <li>
+                Fabricada en silicona grado médico Clase VI de la más alta calidad
+            </li>
+            <li>
+                Libre de látex, plástico, BPA y químicos
+            </li>
+            <li>
+                Certificados: FDA Registered, ISO 13485, ISO 9001, RoHS (puedes consultar los certificados aquí).
+            </li>
+        </ul>
+
+        <div class="talla-desc">
+            <h2>TALLA 1</h2>
+            <p>Ideal para quienes:</p>
+            <ul>
+                <li>No han tenido partos vaginales</li>
+                <li>Son menores de 30 años</li>
+                <li>Su estatura es max. 1.65m</li>
+                <li>Su talla de pantalón es max. 8</li>
+                <li>Han usado tampón mini o regular</li>
+            </ul>
+        </div>
+
+        <div class="talla-desc">
+            <h2>TALLA 2</h2>
+            <p>Ideal para quienes:</p>
+            <ul>
+                <li>Ya han tenido partos vaginales</li>
+                <li>Son mayores de 30 años (así no hayan tenido hijos)</li>
+                <li>Su estatura es superior a 1.65m</li>
+                <li>Su talla de pantalón superior a 8</li>
+                <li>Han usado tampón súper</li>
+            </ul>
+        </div>
+
+        <p><b>Incluye: Copa menstrual, bolsa en tela y manual de uso.</b>
+            <br>
+            Fabricada por: Casco Bay Molding
+            <br>
+            Visita nuestro instagram para darte tips sobre cómo ponértela y cómo limpiarla y esterilizarla.
+        </p>
+    </section>
+</div>
