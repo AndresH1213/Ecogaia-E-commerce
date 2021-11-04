@@ -12,6 +12,12 @@ interface numProducts {
 })
 export class CupComponent implements OnInit {
 
+  public scrollIcon = true;
+
+  scrolldown () {
+    this.scrollIcon = false;
+  }
+
   selected: numProducts = {
     cant: 1,
     code: 'CMT'

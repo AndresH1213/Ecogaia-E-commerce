@@ -12,7 +12,7 @@ import { filter, map, tap } from 'rxjs/operators';
 export class NavbarComponent implements OnInit{
   
   title: string= 'ECOGAIA';
-  subtitle: boolean = false;
+  subtitle: boolean = true;
   
   constructor( private router: Router) {}
 

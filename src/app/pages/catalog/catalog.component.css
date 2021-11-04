@@ -148,6 +148,17 @@
     font-size: var(--font-size-lg);
 }
 
+.scroll-down {
+    color: var(--color-button);
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.scroll-down i {
+    font-size: 20px;
+}
+
 .next-page {
     position: absolute;
     top: 50%;

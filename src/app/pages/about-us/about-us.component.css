@@ -77,6 +77,11 @@
     font-size: var(--font-size-lg);
 }
 
+.localization {
+    font-style: italic;
+    font-size: 1rem !important;
+}
+
 @media only screen and (max-width: 770px) {
     .about_us {
         grid-template-columns: 1fr;

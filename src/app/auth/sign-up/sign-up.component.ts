@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  formSignup = this.fb.group({
+    email: ['test@test.com', [Validators.required, Validators.email]],
+    password: ['12345', [Validators.required]],
+    password2: ['12345', [Validators.required]],
+  })
+
+  constructor(private router: Router,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  createUser() {
+    console.log(this.formSignup.value)
   }
 
 }

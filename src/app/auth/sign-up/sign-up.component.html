@@ -4,20 +4,35 @@
             <div class="logo-img">
                 <img src="assets/images/logo.png" alt="">
             </div>
-            <form autocomplete="off">
+            <form autocomplete="off"
+                  [formGroup]="formSignup"
+                  (ngSubmit)="createUser()">
                 <div class="form-control">
                     <label for="username"><i class="pi pi-user"></i></label>
-                    <input name="username" type="text" class="input-form" placeholder="email o username">
+                    <input name="username" type="text" class="input-form" 
+                            placeholder="email o username"
+                            formControlName="email">
                 </div>
                 <div class="form-control">
                     <label for="password"><i class="pi pi-lock"></i></label>
-                    <input name="password" type="text" class="input-form" placeholder="password">
+                    <input name="password" 
+                            type="password" 
+                            class="input-form" 
+                            placeholder="password"
+                            formControlName="password">
                 </div>
                 <div class="form-control">
                     <label for="password"><i class="pi pi-link"></i></label>
-                    <input name="password" type="text" class="input-form" placeholder="confirm password">
+                    <input  formControlName="password2"
+                            name="password" 
+                            type="text" 
+                            class="input-form" 
+                            placeholder="confirm password">
                 </div>
-                <button class="btn btn-signup">Sign up</button>
+                <button class="btn btn-signup"
+                        type="submit">
+                    Sign up
+                </button>
                 <div class="form-group row m-b-0">
                     <div class="col-sm-12 text-center">
                         <p>Already have an account? <a routerLink="/auth/login" class="text-info m-l-5"><b>Log In</b></a></p>
