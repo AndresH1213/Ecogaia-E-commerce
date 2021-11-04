@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface numProducts {
-  code: string;
-  cant: number;
-}
+import { ProductPicked } from '../../../interfaces/product.interface';
 
 @Component({
   selector: 'app-cup',
@@ -13,36 +9,39 @@ interface numProducts {
 export class CupComponent implements OnInit {
 
   public scrollIcon = true;
+  public tallas!: [string, string];
 
-  scrolldown () {
-    this.scrollIcon = false;
-  }
-
-  selected: numProducts = {
+  public selected: ProductPicked = {
+    code: 'CMT',
     cant: 1,
-    code: 'CMT'
-  }
-
+    talla: ''
+  };
+  
   constructor() { }
-
+  
   ngOnInit(): void {
     this.selected.cant = 1;
+    // retrieve tallas?
+    this.tallas = ['Talla 1', 'Talla 2']
   }
-
+  
   changeValue(value: number) {
     this.selected.cant += value;
-    console.log(this.selected)
   }
   onChange(value: any ) {
     console.log(value)
   }
-
+  
   changeNum(event: any) {
     console.log(event.target.value)
   }
-
+  
   addCart() {
     console.log(this.selected)
+  }
+
+  scrolldown () {
+    this.scrollIcon = false;
   }
 
 }

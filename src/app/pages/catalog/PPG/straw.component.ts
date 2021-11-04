@@ -8,7 +8,9 @@ import { ProductPicked } from '../../../interfaces/product.interface';
 })
 export class StrawComponent implements OnInit {
 
-  public colors: string[] = [] 
+  public colors: string[] = []
+  public cant: number = 1;
+  public color: string = '';
   selected: ProductPicked = {
     code: 'PPG',
     cant: 1,
@@ -22,7 +24,11 @@ export class StrawComponent implements OnInit {
 
   changeValue(value: number) {
     this.selected.cant += value;
-    console.log(this.selected)
+    this.cant += value;
+  }
+
+  addCart() {
+    console.log(this.cant, this.color)
   }
 
 }

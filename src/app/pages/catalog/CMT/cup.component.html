@@ -2,6 +2,16 @@
     <section class="product-container">
         <div class="image"></div>
         <form class="product-properties form-group" (ngSubmit)="addCart()">
+            <label for="colores" class="input-label">Talla</label>
+            <select name="tallas" 
+                    class="input form-control"
+                    [(ngModel)]="selected.talla">
+                <option value="">Selecccione una talla...</option>
+                <option *ngFor="let talla of tallas"
+                        [value]="talla"
+                        class="input-color"
+                        >{{talla}}</option>
+            </select>
             <div class="input-cant">
                 <span class="input-group-btn">
                     <button (click)="changeValue(-1)"
@@ -12,7 +22,7 @@
                 </span>
                 <input type="number" 
                        class="form-control input"
-                       placeholder="cant"
+                       placeholder="1"
                        [(ngModel)]="selected.cant"
                        name="cant"
                        max=100

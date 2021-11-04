@@ -5,6 +5,7 @@
             <label for="colores" class="input-label">Color</label>
             <select name="colores" 
                     class="input form-control"
+                    [(ngModel)]="color"
                     name="color">
                 <option value="">Selecccione un color...</option>
                 <option *ngFor="let item of colors"
@@ -23,6 +24,8 @@
                 <input type="number" 
                        class="form-control input"
                        placeholder="1"
+                       [(ngModel)]="cant"
+                       name="cant"
                        max=100
                        min=0>
             
@@ -34,7 +37,7 @@
                     </button>
                 </span>
             </div>
-            <button type="button" class="btn-cart">
+            <button type="button" class="btn-cart" (click)="addCart()">
                 Añadir al carrito
                 <i class="uil uil-shopping-cart-alt"></i>
             </button>

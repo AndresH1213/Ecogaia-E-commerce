@@ -7,15 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrushHairComponent implements OnInit {
 
+  public cant: number = 1;
+
   constructor() { }
 
   ngOnInit(): void {
   }
   changeValue(value: number) {
-    console.log(value)
+    this.cant  += value;
   }
   onChange(value: any ) {
     console.log(value)
+  }
+
+  addCart() {
+    console.log(this.cant)
   }
 
 }
