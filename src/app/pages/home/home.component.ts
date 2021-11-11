@@ -22,20 +22,20 @@ export class HomeComponent implements OnInit {
 
     this.images = [
       {
-        name: 'gato',
-        path: "../../assets/images/1617958201228-calabaza.png"
+        name: 'cup',
+        path: "assets/images/cup1.jpg"
       },
       {
-        name: 'gato',
-        path: "../../assets/images/BRDM7234.JPG"
+        name: 'toothbrush',
+        path: "assets/images/toothbrush.jpg"
       },
       {
-        name: 'gato',
-        path: "../../assets/images/BRDM7234.JPG"
+        name: 'straw',
+        path: "assets/images/straw2.jpg"
       },
       {
-        name: 'gato',
-        path: "../../assets/images/BRDM7234.JPG"
+        name: 'hairbrush',
+        path: "assets/images/hairbrush1.jpg"
       }
     ]
   }

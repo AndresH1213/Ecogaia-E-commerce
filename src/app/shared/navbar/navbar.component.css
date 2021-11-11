@@ -61,6 +61,10 @@
     box-shadow: 0 0 1px 0.15rem var(--color-text-primary);
 }
 
+.navbar-logo {
+    height: 4rem;
+}
+
 .button-cart:hover {
     background-color: var(--bg-nav);
     color: var(--color-text-primary);
