@@ -1,7 +1,8 @@
 <div class="container-individual">
     <section class="product-container">
+        <app-button-back-products></app-button-back-products>
         <div>
-            <img class="image" src="assets/images/toothbrush.jpg" alt="pitillo reutilizable">
+            <img class="image" src="assets/images/toothbrush.webp" alt="pitillo reutilizable">
         </div>
         <form class="product-properties form-group" [formGroup]="productForm" (ngSubmit)="addCart()">
                 <label for="colores" class="input-label">Color</label>

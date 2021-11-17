@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-components',
-  templateUrl: './components.component.html',
-  styleUrls: ['./components.component.css']
+  templateUrl: './image-window.component.html',
+  styleUrls: ['./image-window.component.css']
 })
-export class ComponentsComponent implements OnInit {
+export class imageWindowComponent implements OnInit {
 
   @Input() product!: string 
   constructor() { }

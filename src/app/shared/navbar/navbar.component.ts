@@ -65,16 +65,16 @@ export class NavbarComponent implements OnInit{
         icon: 'pi pi-globe',
         routerLink: '/about-us' 
       },
-      {
-        label: 'Ingresar',
-        icon: 'pi pi-sign-in',
-        routerLink: '/auth/login'
-      },
-      {
-        label: 'Registrarse',
-        icon: 'pi pi-user',
-        routerLink: '/auth/signup'
-      }
+      // {
+      //   label: 'Ingresar',
+      //   icon: 'pi pi-sign-in',
+      //   routerLink: '/auth/login'
+      // },
+      // {
+      //   label: 'Registrarse',
+      //   icon: 'pi pi-user',
+      //   routerLink: '/auth/signup'
+      // }
     ]
   }
 

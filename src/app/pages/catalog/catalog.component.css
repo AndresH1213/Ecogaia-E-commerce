@@ -177,6 +177,9 @@
     .container-individual {
         grid-template-columns: 1fr;
     }
+    .product-container {
+        margin-top: 20px;
+    }
 
     .description-container::before {
         display: none;

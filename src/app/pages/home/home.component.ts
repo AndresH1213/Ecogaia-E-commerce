@@ -4,6 +4,7 @@ import { HelpersService } from '../../services/helpers.service';
 interface imgsPaths {
   name: string;
   path: string;
+  productUrl: string;
 }
 
 @Component({
@@ -23,19 +24,23 @@ export class HomeComponent implements OnInit {
     this.images = [
       {
         name: 'cup',
-        path: "assets/images/cup1.jpg"
+        path: "assets/images/cup1.webp",
+        productUrl: '/product/CMT'
       },
       {
         name: 'toothbrush',
-        path: "assets/images/toothbrush.jpg"
+        path: "assets/images/toothbrush.webp",
+        productUrl: '/product/CDD'
       },
       {
         name: 'straw',
-        path: "assets/images/straw2.jpg"
+        path: "assets/images/straw2.webp",
+        productUrl: '/product/PPG'
       },
       {
         name: 'hairbrush',
-        path: "assets/images/hairbrush1.jpg"
+        path: "assets/images/hairbrush1.webp",
+        productUrl: '/product/CCB'
       }
     ]
   }

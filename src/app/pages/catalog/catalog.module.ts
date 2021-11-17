@@ -8,6 +8,7 @@ import { CupComponent } from './CMT/cup.component';
 import { StrawComponent } from './PPG/straw.component';
 import { ToothbrushComponent } from './CDD/toothbrush.component';
 import { CatalogRoutingModule } from './catalog-routing.module';
+import { ButtonBackProductsComponent } from '../components/button-back-products/button-back-products.component';
 
 
 
@@ -18,6 +19,7 @@ import { CatalogRoutingModule } from './catalog-routing.module';
     CupComponent,
     StrawComponent,
     ToothbrushComponent,
+    ButtonBackProductsComponent,
   ],
   imports: [
     CommonModule,

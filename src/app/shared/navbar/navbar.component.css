@@ -76,5 +76,11 @@
     z-index: 111;
 }
 
+@media only screen and (max-width: 670px) {
+    .navbar-title {
+        display: none;
+    }
+}
+
 
   

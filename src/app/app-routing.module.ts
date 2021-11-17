@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PagesRoutingModule } from './pages/pages.routes';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { CartComponent } from './cart/cart.component';
+import { CartModule } from "./cart/cart.module";
 
 const routes: Routes = [
     {
@@ -10,7 +12,7 @@ const routes: Routes = [
     },
     {
         path: 'cart',
-        loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)
+        component: CartComponent
     },
     {
         path: 'auth',
@@ -26,6 +28,7 @@ const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes),
         PagesRoutingModule,
+        CartModule
     ],
     exports: [RouterModule]
 })
