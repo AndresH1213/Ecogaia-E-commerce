@@ -1,22 +1,22 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
 import { PagesRoutingModule } from './pages/pages.routes';
-import { NopagefoundComponent } from './nopagefound/nopagefound.component';
-import { CartComponent } from './cart/cart.component';
 import { CartModule } from "./cart/cart.module";
+import { AuthModule } from './auth/auth.module';
+
+import { CartComponent } from './cart/cart.component';
+import { LogInComponent } from './auth/log-in/log-in.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 const routes: Routes = [
-    {
-        path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
-    },
     {
         path: 'cart',
         component: CartComponent
     },
     {
-        path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+        path: 'admin/login',
+        component: LogInComponent
     },
     {
         path: '**',
@@ -28,7 +28,8 @@ const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes),
         PagesRoutingModule,
-        CartModule
+        CartModule,
+        AuthModule
     ],
     exports: [RouterModule]
 })

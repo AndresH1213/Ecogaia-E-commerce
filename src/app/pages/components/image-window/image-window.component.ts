@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-components',
+  selector: 'app-image-window',
   templateUrl: './image-window.component.html',
   styleUrls: ['./image-window.component.css']
 })

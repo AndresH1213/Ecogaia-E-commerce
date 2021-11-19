@@ -14,10 +14,10 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = [
-      {code:'CDD', imgUrl: './assets/images/BRDM7234.JPG', name:'Cepillo de dientes de bambú', price: 15000},
-      {code:'PPG', imgUrl: './assets/images/notfound.png', name:'Pitillo plegable', price: 25000},
-      {code:'CMT', imgUrl: './assets/images/BRDM7234.JPG', name:'Copa menstrual', price: 60000},
-      {code:'CCB', imgUrl: './assets/images/notfound.png', name:'Cepillo de cabello de bambú', price: 20000},
+      {code:'CDD', imgUrl: './assets/images/toothbrush2.webp', name:'Cepillo de dientes de bambú', price: 15000},
+      {code:'PPG', imgUrl: './assets/images/straw1.webp', name:'Pitillo plegable', price: 25000},
+      {code:'CMT', imgUrl: './assets/images/cup2.webp', name:'Copa menstrual', price: 60000},
+      {code:'CCB', imgUrl: './assets/images/hairbrush1.webp', name:'Cepillo de cabello de bambú', price: 20000},
     ]
   }
 

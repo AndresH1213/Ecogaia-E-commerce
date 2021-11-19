@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
-import { ToothbrushComponent } from './catalog/CDD/toothbrush.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
 
@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'product',
     loadChildren: ()=> import('./catalog/catalog.module').then(m => m.CatalogModule)
   },
+  { path: 'orders', component: OrdersComponent },
   { path: 'about-us', component: AboutUsComponent },
 
 ]

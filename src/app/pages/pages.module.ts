@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { PagesComponent } from './pages.component';
 import { RouterModule } from '@angular/router';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     ProductsComponent,
     imageWindowComponent,
     PagesComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,

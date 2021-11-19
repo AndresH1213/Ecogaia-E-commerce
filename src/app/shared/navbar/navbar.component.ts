@@ -28,8 +28,6 @@ export class NavbarComponent implements OnInit{
         switch (eventdata.url) {
           case '/products':
             return 'PRODUCTOS'
-          case '/auth/registrarse':
-            return 'SIGN IN'
           case '/about-us':
             return 'NOSOTROS'
           case '/carrito':
@@ -64,17 +62,7 @@ export class NavbarComponent implements OnInit{
         label: 'Sobre Nosotros',
         icon: 'pi pi-globe',
         routerLink: '/about-us' 
-      },
-      // {
-      //   label: 'Ingresar',
-      //   icon: 'pi pi-sign-in',
-      //   routerLink: '/auth/login'
-      // },
-      // {
-      //   label: 'Registrarse',
-      //   icon: 'pi pi-user',
-      //   routerLink: '/auth/signup'
-      // }
+      }
     ]
   }
 
