@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartComponent } from './cart.component';
 import { SharedModule } from '../shared/shared.module';
+
+import { CardModule } from 'primeng/card'
+import { CartComponent } from './cart.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +14,10 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    CardModule,
+    ReactiveFormsModule
   ],
   exports: [
     CartComponent

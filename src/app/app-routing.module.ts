@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { CartComponent } from './cart/cart.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { AdminProductsComponent } from './auth/admin-products/admin-products.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'admin/login',
         component: LogInComponent
+    },
+    {
+        path: 'admin/products',
+        component: AdminProductsComponent
     },
     {
         path: '**',

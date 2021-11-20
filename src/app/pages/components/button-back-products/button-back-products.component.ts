@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
     background-color: var(--color-button);
     border: none;
     padding: 10px;
+    top: 15%;
     position: absolute;
     left: 20px;
     color: white;

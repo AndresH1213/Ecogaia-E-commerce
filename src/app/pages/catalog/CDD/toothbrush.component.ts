@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ProductPicked } from '../../../interfaces/product.interface';
 
 @Component({
@@ -8,6 +8,8 @@ import { ProductPicked } from '../../../interfaces/product.interface';
   styleUrls: ['../catalog.component.css']
 })
 export class ToothbrushComponent implements OnInit {
+
+  public catalog: string[] = ['assets/images/toothbrush2.webp','assets/images/toothbrush.webp']
 
   public colors: string[] = [];
   public durezas: string[] = [];

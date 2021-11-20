@@ -9,6 +9,7 @@ import { ProductPicked } from '../../../interfaces/product.interface';
 export class CupComponent implements OnInit {
 
   public scrollIcon = true;
+  public catalog: string[] = ['assets/images/cup.webp','assets/images/cup2.webp','assets/images/cup1.webp']
   public tallas!: [string, string];
 
   public selected: ProductPicked = {

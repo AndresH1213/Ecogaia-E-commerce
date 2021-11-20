@@ -1,0 +1,94 @@
+<div class="container mt-3">
+    <div class="row container">
+        <div class="col">
+            <h1 class="title">Administración de productos</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+
+        <p-card>
+            <div class="row">
+                <h3 class="title">Select product for <b>update</b> it</h3>
+            </div>
+            <div class="row">
+                <select name="productList" class="form-control product-selector">
+                    <option value="">
+                        --- Select if wanna update ---
+                    </option>
+                    <option *ngFor="let product of products"
+                            value="product._id">{{ product.name }} </option>
+                </select>
+            </div>
+        </p-card>
+
+        <p-card>
+            <form [formGroup]="productForm" (ngSubmit)="edit()">
+                <h5>Propiedades</h5>
+                <div class="p-grid p-fluid">
+                    <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon">Nombre Producto</span>
+                            <input type="text" pInputText placeholder="name" formControlName="name">         
+                        </div>
+                    </div>
+                    
+                    <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon">$</span>
+                            <input type="number" pInputText placeholder="Price" formControlName="price">   
+                            <span class="p-inputgroup-addon">.00</span>      
+                        </div>
+                    </div>
+                            
+                    <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon">Image Url</span>
+                            <input type="text" pInputText placeholder="url" formControlName="imgUrl">      
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-inputgroup" class="ms-4">
+                            <p-button label="Edit" type="submit" [disabled]="!productForm.valid" icon="pi pi-check"></p-button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </p-card>
+
+        </div>
+        <div class="col">
+            <p-card>
+                <h3>Armar el combo</h3>
+                <hr>
+                <h4>Products</h4>
+                <div class="form-control">
+                    <p-dropdown [options]="products" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+                    <button type="button" class="btn btn-light ms-1 mb-1"><i class="pi pi-plus-circle"></i></button>
+                </div>
+
+                <div class="card mt-3">
+                    <h4 *ngFor="let item of [1,2,3]">numero {{item}} <i class="pi pi-minus-circle"></i></h4>
+                </div>
+
+                <div class="p-col-12 p-md-4">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">$</span>
+                        <input type="number" pInputText placeholder="Price">   
+                    </div>
+                </div>
+
+                <div class="p-col-12 p-md-4">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Image Url</span>
+                        <input type="text" pInputText placeholder="url">      
+                    </div>
+                </div>
+
+                <p-button class="ms-4" icon="pi pi-save" label="Guardar Combo"></p-button>
+            </p-card>
+        </div>
+    </div>
+</div>

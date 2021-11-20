@@ -1,9 +1,8 @@
 <div class="container-individual">
     <section class="product-container">
         <app-button-back-products></app-button-back-products>
-        <div >
-            <img class="image" src="assets/images/straw3.webp" alt="pitillo reutilizable">
-        </div>
+        <app-image-carousel [arrayImgs]="catalog"></app-image-carousel>
+
         <form class="product-properties form-group">
             <label for="colores" class="input-label">Color</label>
             <select name="colores" 

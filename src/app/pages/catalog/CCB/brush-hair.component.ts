@@ -9,6 +9,8 @@ export class BrushHairComponent implements OnInit {
 
   public cant: number = 1;
 
+  public catalog: string[] = ['assets/images/hairbrush1.webp','assets/images/hairbrush2.webp','assets/images/cup1.webp']
+
   constructor() { }
 
   ngOnInit(): void {

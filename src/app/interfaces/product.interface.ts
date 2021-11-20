@@ -1,8 +1,8 @@
 export interface Product {
-    code: string;
-    imgUrl?: string;
     name: string;
     price: number;
+    imgUrl?: string;
+    code?: string;
 }
 
 export interface ProductPicked {
