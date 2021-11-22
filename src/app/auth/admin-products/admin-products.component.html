@@ -12,18 +12,21 @@
                 <h3 class="title">Select product for <b>update</b> it</h3>
             </div>
             <div class="row">
-                <select name="productList" class="form-control product-selector">
+                <select name="productList" 
+                        class="form-control product-selector" 
+                        [(ngModel)]="selectedProductID" 
+                        (ngModelChange)="loadProductData($event)">
                     <option value="">
                         --- Select if wanna update ---
                     </option>
                     <option *ngFor="let product of products"
-                            value="product._id">{{ product.name }} </option>
+                            [value]="product._id">{{ product.name }} </option>
                 </select>
             </div>
         </p-card>
 
         <p-card>
-            <form [formGroup]="productForm" (ngSubmit)="edit()">
+            <form [formGroup]="productForm">
                 <h5>Propiedades</h5>
                 <div class="p-grid p-fluid">
                     <div class="p-col-12 p-md-4">
@@ -44,15 +47,52 @@
                     <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon">Image Url</span>
-                            <input type="text" pInputText placeholder="url" formControlName="imgUrl">      
+                            <input type="text" pInputText placeholder="url" formControlName="imageUrl">      
                         </div>
                     </div>
 
-                    <div class="p-col-12 p-md-6">
-                        <div class="p-inputgroup" class="ms-4">
-                            <p-button label="Edit" type="submit" [disabled]="!productForm.valid" icon="pi pi-check"></p-button>
+                    <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                            <button class="btn btn-light"  type="button" (click)="addCharacteristic()">Add</button>
+                            <input type="text" pInputText placeholder="characteristic" formControlName="characteristic">      
+                            <input type="text" pInputText placeholder="value" formControlName="characteristicValue">      
                         </div>
                     </div>
+
+                    <div *ngIf="showCharacteristics" class="card mb-1">
+                        <p class="card-title">Characteristicas disponibles</p>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let key of characteristicKeys">
+                                    <p class="btn btn-outline-dark mt-3" style="cursor: default;">
+                                        {{key}}
+                                    </p> | -- |
+                                    <span *ngFor="let property of characteristic[key]" style="cursor: default;"
+                                    class="btn btn-outline-info ms-4">{{property}} </span> 
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-col-6 p-md-6">
+                        <div class="p-inputgroup" class="ms-4">
+                            <p-button label="Edit" 
+                                      type="button" 
+                                      (click)="edit()"
+                                      [disabled]="!productForm.valid" 
+                                      icon="pi pi-check"
+                                      ></p-button>
+                                      &nbsp;
+                            <button type="button" 
+                                    class="float-end btn btn-danger" 
+                                    [disabled]="!selectedProductID"
+                                    (click)="deleteProduct()">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
             </form>
@@ -65,12 +105,22 @@
                 <hr>
                 <h4>Products</h4>
                 <div class="form-control">
-                    <p-dropdown [options]="products" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
-                    <button type="button" class="btn btn-light ms-1 mb-1"><i class="pi pi-plus-circle"></i></button>
+                    <p-dropdown [options]="products" 
+                                [(ngModel)]="addCombo" 
+                                optionLabel="name"
+                                placeholder="Products to add"
+                    ></p-dropdown>
+                    <button type="button" 
+                            class="btn btn-light ms-1 mb-1"
+                            (click)="pushCombo()"><i class="pi pi-plus-circle"></i></button>
                 </div>
 
                 <div class="card mt-3">
-                    <h4 *ngFor="let item of [1,2,3]">numero {{item}} <i class="pi pi-minus-circle"></i></h4>
+                    <h4 *ngFor="let comboProd of newCombo">{{ comboProd.name }}
+                        <button type="button" class="btn btn-light" (click)="removeCombo(comboProd._id!)">
+                            <i class="pi pi-minus-circle"></i>
+                        </button>
+                    </h4>
                 </div>
 
                 <div class="p-col-12 p-md-4">

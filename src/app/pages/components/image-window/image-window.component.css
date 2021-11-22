@@ -13,10 +13,6 @@
     cursor: pointer;
 }
 
-.image-window:hover{
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px;
-}
-
 .img {
     border: 1px solid black;
     -moz-border-radius: 100px 100px 0 0;

@@ -9,7 +9,7 @@ import { ProductPicked } from '../../../interfaces/product.interface';
 export class StrawComponent implements OnInit {
 
   public colors: string[] = [];
-  public catalog: string[] = ['https://i.ibb.co/VjQTc8Z/combo1.webp','assets/images/straw2.webp','assets/images/straw1.webp']
+  public catalog: string[] = ['assets/images/straw2.webp','assets/images/straw1.webp']
   public cant: number = 1;
   public color: string = '';
   selected: ProductPicked = {

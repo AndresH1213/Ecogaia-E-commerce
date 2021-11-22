@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Product } from '../interfaces/product.interface';
-import { Observer } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Product } from '../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +17,23 @@ export class ProductsService {
     return this.http.get<{ok: boolean, products: Product[]}>(url).pipe(
       map(({products} ) => products)
     )
+  }
+
+  getSingleProduct(id: string) {
+    const url = `${this.baseUrl}/products/${id}`;
+    return this.http.get<{ok: Boolean, product: Product}>(url).pipe(
+      map(({product}) => product )
+    )
+  }
+
+  deleteProduct(id: string) {
+    const url = `${this.baseUrl}/products/${id}`;
+    return this.http.delete<{ok: Boolean, msg: string }>(url)
+  }
+
+  updateProduct(id: string, data: Product) {
+    const url = `${this.baseUrl}/products/${id}`;
+    console.log(id, data, 'updated')
+    // return this.http.put<{ok: Boolean, msg: string }>(url, {})
   }
 }
