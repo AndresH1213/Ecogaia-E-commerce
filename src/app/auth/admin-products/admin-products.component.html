@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container mt-3" id="wrapper">
     <div class="row container">
         <div class="col">
             <h1 class="title">Administración de productos</h1>
@@ -46,15 +46,42 @@
                             
                     <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon">Image Url</span>
-                            <input type="text" pInputText placeholder="url" formControlName="imageUrl">      
+                            <span class="p-inputgroup-addon" *ngIf="!inputFileImage">Image Url</span>
+                            <input  *ngIf="!inputFileImage"
+                                    type="text" 
+                                    pInputText placeholder="url" 
+                                    formControlName="image">
+                            <input  *ngIf="inputFileImage"
+                                    type="file"
+                                    style="width: 300px;" 
+                                    class="form-control file-input mt-1 ms-1"  
+                                    (change)="onImageChange($event.target)">      
+                            <button class="btn btn-outline-dark ms-1" type="button" (click)="showIputFileImage()">{{ inputImageStateText }}</button>     
+                            
+                            <!-- update / add image  -->
+                            <div  class="ms-5"  *ngIf="selectedProduct">
+                                <button class="btn btn-outline-dark" 
+                                        type="button"
+                                        pTooltip="Add image to product" 
+                                        tooltipPosition="top"
+                                        (click)="showIputFileImage()">
+                                    <i class="uil uil-image-plus"></i>
+                                </button>
+                                <button class="btn btn-outline-dark ms-3" 
+                                        type="button"
+                                        pTooltip="Replace cover Image" 
+                                        tooltipPosition="top"
+                                        (click)="showIputFileImage()">
+                                    <i class="uil uil-image-edit"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
                             <button class="btn btn-light"  type="button" (click)="addCharacteristic()">Add</button>
-                            <input type="text" pInputText placeholder="characteristic" formControlName="characteristic">      
+                            <input type="text" pInputText placeholder="characteristic" formControlName="characteristicName">      
                             <input type="text" pInputText placeholder="value" formControlName="characteristicValue">      
                         </div>
                     </div>
@@ -75,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="p-col-6 p-md-6">
+                    <div class="p-col-6 p-md-6" *ngIf="selectedProduct">
                         <div class="p-inputgroup" class="ms-4">
                             <p-button label="Edit" 
                                       type="button" 
@@ -90,6 +117,18 @@
                                     (click)="deleteProduct()">
                                 Delete
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="p-col-6 p-md-6" *ngIf="!selectedProduct">
+                        <div class="p-inputgroup" class="ms-4">
+                            <p-button label="Add Product" 
+                                      type="button" 
+                                      (click)="createProduct()"
+                                      [disabled]="!productForm.valid" 
+                                      icon="pi pi-check"
+                                      ></p-button>
+
                         </div>
                     </div>
 
@@ -116,7 +155,7 @@
                 </div>
 
                 <div class="card mt-3">
-                    <h4 *ngFor="let comboProd of newCombo">{{ comboProd.name }}
+                    <h4 class="ms-2" *ngFor="let comboProd of newCombo">{{ comboProd.name }}
                         <button type="button" class="btn btn-light" (click)="removeCombo(comboProd._id!)">
                             <i class="pi pi-minus-circle"></i>
                         </button>

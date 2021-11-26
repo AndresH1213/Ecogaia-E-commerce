@@ -11,23 +11,26 @@ import { ProductsService } from '../../services/products.service';
 })
 export class AdminProductsComponent implements OnInit {
   products: Product[] = [];
-  selectedProductID: string | undefined;
+  selectedProductID: string = "";
   selectedProduct: Product | undefined;
 
   addCombo: Product | undefined;
   newCombo: Product[] = [];
 
   productForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.minLength(3)]],
     price: ['', [Validators.required,  Validators.min(1)]],
-    imageUrl: ['', Validators.required],
-    characteristic: [''],
+    image: [null],
+    characteristicName: [''],
     characteristicValue: ['']
   })
 
   public characteristic: any = {};
   public characteristicKeys: string[] = [];
   public showCharacteristics: boolean = false;
+
+  public inputFileImage: boolean = false;
+  public inputImageStateText = 'Subir';
 
   constructor(private fb: FormBuilder,
               private productService: ProductsService) { }
@@ -52,14 +55,17 @@ export class AdminProductsComponent implements OnInit {
     this.showCharacteristics = false;
 
     if (!prodId) {
+      this.selectedProduct = undefined;
       return this.productForm.reset();
     }
+
     this.productService.getSingleProduct(prodId!).subscribe((product) => {
       const { name, price, imageUrl, characteristics } = product;
       this.selectedProduct = product;
       let characteristicKey = ''
       let characteristicValue = [];
-      // if the product has characteristcis load with the firs one the input form
+      console.log(characteristics)
+      // if the product has characteristcis, load with the first one for UX
       if (characteristics) {
         characteristicKey = Object.keys(characteristics!)[0];
         characteristicValue = characteristics[characteristicKey];
@@ -73,31 +79,34 @@ export class AdminProductsComponent implements OnInit {
       this.productForm.setValue({
         name, 
         price, 
-        imageUrl: imageUrl![0], 
-        characteristic: characteristicKey, 
+        image: imageUrl![0] || 'no-image', 
+        characteristicName: characteristicKey, 
         characteristicValue: characteristicValue
       });
     })
   }
 
   addCharacteristic() {
-    if (!this.productForm.get('characteristic')?.value || !this.productForm.get('characteristicValue')?.value) {
+    if (!this.productForm.get('characteristicName')?.value || !this.productForm.get('characteristicValue')?.value) {
       return 
     }
     this.showCharacteristics = true;
-    const characteristicKey = this.productForm.get('characteristic')?.value;
+    const characteristicKey = this.productForm.get('characteristicName')?.value;
     const characteristicValue = this.productForm.get('characteristicValue')?.value;
+
     // if characteristic >1 the values must be provided separate by comas
     let characteristicSet = characteristicValue;
-    console.log(this.characteristic)
+
     if (typeof(characteristicValue) === typeof('string') ) {
-      characteristicSet = characteristicValue.split(',')
+      characteristicSet = characteristicValue.split(',');
     }
+    // add this new characteristics to the characteristic object
     this.characteristic = {
       ...this.characteristic,
       [characteristicKey]: characteristicSet
     };
     this.characteristicKeys = Object.keys(this.characteristic);
+    console.log(this.productForm.value)
   }
 
   pushCombo() {
@@ -113,15 +122,34 @@ export class AdminProductsComponent implements OnInit {
     this.newCombo.splice(indexProduct, 1);
   }
 
+  createProduct() {
+    const productData = this.productForm.value;
+    // if theres a characteristic in the characteristicObject add to the productData
+    // this because in the producform we store just charcName and charcValue
+    if (this.characteristic) {
+      productData.characteristics = JSON.stringify(this.characteristic)
+    }
+    this.productService.addProduct(productData).subscribe((resp : any) => {
+      if (resp.ok) {
+        Swal.fire('New product added!', `New Product ${productData.name}`, 'success')
+        this.productForm.reset()
+        this.loadProducts();
+      } else {
+        Swal.fire('Opps', 'A error ocurrs', 'error');
+      }
+    }, (err) => {
+      Swal.fire('err', err.error.msg, 'error')
+    })
+  }
+
   edit() {
     const prodId = this.selectedProductID;
-    console.log(prodId,'selected Product')
-    const {name, price, imageUrl} = this.productForm.value;
+    const {name, price, image} = this.productForm.value;
 
     let data: any = {
       name, 
       price, 
-      imageUrl
+      image
     }
 
     if (this.characteristic) {
@@ -130,7 +158,13 @@ export class AdminProductsComponent implements OnInit {
       data.characteristics = {}
     }
 
-    this.productService.updateProduct(prodId!, data );
+    this.productService.updateProduct(prodId!, data ).subscribe(resp => {
+      if (resp.ok) {
+        Swal.fire('Updated!', resp.msg, 'success')
+      }
+    }, (err) => {
+      Swal.fire('Error', `Ups something happend`, 'error')
+    })
   }
 
   deleteProduct() {
@@ -150,9 +184,27 @@ export class AdminProductsComponent implements OnInit {
             'success'
           );
           this.loadProducts();
+          this.selectedProduct = undefined;
         });
       }
     });
+  }
+
+  showIputFileImage() {
+    this.inputFileImage = this.inputFileImage ? false : true;
+    this.inputImageStateText = this.inputImageStateText === 'URL' ? 'Subir' : 'URL';
+
+    // reset the previuos input value
+    this.productForm.get('image')?.reset();
+  }
+
+  onImageChange(target: any) {
+
+    const [ file ] = target.files;
+    if (file) {
+      this.productForm.patchValue({image: file})
+    }
+
   }
 
 }

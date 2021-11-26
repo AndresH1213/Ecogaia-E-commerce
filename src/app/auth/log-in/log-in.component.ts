@@ -1,6 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-log-in',
@@ -20,17 +22,30 @@ export class LogInComponent implements OnInit {
   
   constructor(private router: Router,
               private fb: FormBuilder,
-              private ngZone: NgZone) { }
+              private adminService: AdminService) { }
 
   ngOnInit(): void {
   }
 
   login() {
     this.formSubmitted = true;
-    console.log(this.loginForm.value)
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+    const dataAuth = {email, password}
+    this.adminService.loginUser(dataAuth).subscribe(resp => {
+      if (this.loginForm.get('remeber')) {
+        localStorage.setItem('email', email)
+      } else {
+        localStorage.removeItem('email');
+      }
+      // Navigate to the route
+      this.router.navigateByUrl('/admin/products')
+    }, (err) => {
+      Swal.fire('Error', err.msg, 'error')
+    })
   }
-  googleLogin() {
-    //TODO: implement this authentication
-  }
+  // googleLogin() {
+  //   //TODO: implement this authentication in the future if customer user auth
+  // }
 
 }
