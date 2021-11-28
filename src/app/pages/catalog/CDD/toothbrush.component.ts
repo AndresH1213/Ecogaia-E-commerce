@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProductPicked } from '../../../interfaces/product.interface';
 
 @Component({
   selector: 'app-individual',
@@ -14,7 +13,7 @@ export class ToothbrushComponent implements OnInit {
   public colors: string[] = [];
   public durezas: string[] = [];
   public cantidad: number = 1;
-  public pickedProduct: ProductPicked = {
+  public pickedProduct: any = {
     code: 'CDD',
     color: 'blanco',
     dureza: '1',

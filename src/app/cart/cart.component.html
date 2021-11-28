@@ -56,11 +56,17 @@
                     <p class="col-6">$ 457.00</p>
                 </div>
                 <div class="order-shipping">
-                    <form [formGroup]="orderForm" (ngSubmit)="checkOut();">
+                    <form [formGroup]="orderForm">
                         <label for="email">Email</label>
                         <input type="text"
+                                id="email"
                                 class="form-control mb-2"
                                 formControlName="email">
+                        <label for="phoneNumber">Celular</label>
+                        <input type="text"
+                                id="phoneNumber"
+                                class="form-control mb-2"
+                                formControlName="phoneNumber">
                         <p> <b>Solo envios nacionales a Colombia**</b> </p>
                         <div class="row mb-2">
                             <label class="form-label">Departamento</label>
@@ -95,8 +101,9 @@
                             </div>
                             <div class="col">
                                 <button class="btn btn-primary mt-3 float-end"
-                                        type="submit">
-                                    ordernar
+                                        type="button"
+                                        (click)="confirm()">
+                                    confirm
                                 </button>
                             </div>
                         </div>
@@ -108,19 +115,5 @@
 </div>
 
 <script>
-    // Agrega credenciales de SDK
-    const mp = new MercadoPago('APP_USR-d0d2792f-874e-4717-85e7-c9b1d41cde1b', {
-        locale: 'es-CO'
-    });
 
-    // Inicializa el checkout
-    mp.checkout({
-        preference: {
-            id: 'YOUR_PREFERENCE_ID'
-        },
-        render: {
-            container: '.cho-container', // Indica el nombre de la clase donde se mostrará el botón de pago
-            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
-        }
-    });
 </script>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductPicked } from '../../../interfaces/product.interface';
 
 @Component({
   selector: 'app-cup',
@@ -12,7 +11,7 @@ export class CupComponent implements OnInit {
   public catalog: string[] = ['assets/images/cup.webp','assets/images/cup2.webp','assets/images/cup1.webp']
   public tallas!: [string, string];
 
-  public selected: ProductPicked = {
+  public selected: any = {
     code: 'CMT',
     cant: 1,
     talla: ''

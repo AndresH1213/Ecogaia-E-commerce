@@ -26,7 +26,7 @@ export class AdminService {
     }
   };
 
-  get role(): 'ADMINISTRATOR' | 'CUSTOMER' | 'CLIENT' {
+  get role(): 'ADMINISTRATOR' | 'CLIENT' {
     return this.user.role!;
   }
 

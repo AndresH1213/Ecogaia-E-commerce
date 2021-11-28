@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-catalog',
@@ -8,17 +9,14 @@ import { Product } from 'src/app/models/Product';
 })
 export class ProductsComponent implements OnInit {
 
-  // productImg = 'url(../../../assets/images/BRDM7234.JPG)';
   products: Product[] = [];
-  constructor() { }
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-    // this.products = [
-    //   {code:'CDD', imageUrl: ['./assets/images/toothbrush2.webp'], name:'Cepillo de dientes de bambú', price: 15000},
-    //   {code:'PPG', imageUrl: ['./assets/images/straw1.webp'], name:'Pitillo plegable', price: 25000},
-    //   {code:'CMT', imageUrl: ['./assets/images/cup2.webp'], name:'Copa menstrual', price: 60000},
-    //   {code:'CCB', imageUrl: ['./assets/images/hairbrush1.webp'], name:'Cepillo de cabello de bambú', price: 20000},
-    // ]
+    this.productService.getProducts().subscribe(products => {
+        this.products = products; 
+    })
+
   }
 
 }

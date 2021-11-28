@@ -25,16 +25,15 @@ export class ProductsService {
 
   toProductData(productForm: any) {
 
-    console.log(productForm)
-
     const formData = new FormData();
 
     // setting all the productform values to formData, in case that a file come in the form can be
     // send as file and not as json;
-    const { name, image, price, characteristics } = productForm
+    const { name, code, image, price, characteristics } = productForm
     
     // append the values
     formData.append('name', name);
+    formData.append('code', code);
     formData.append('imageUrl', image);
     formData.append('price', price);
     formData.append('characteristics', characteristics)
@@ -47,12 +46,25 @@ export class ProductsService {
   getProducts() {
     const url = `${baseUrl}/products/all`;
     return this.http.get<{ok: boolean, products: Product[]}>(url).pipe(
-      map(({products} ) => products)
+      map(({products} ) => products),
+      map(products => {
+        const productsIntances = products.map(product => {
+          const {_id, code, name, price, imageUrl, characteristics } = product
+          const newProduct = new Product(_id, name, price, imageUrl, characteristics, code )
+          return newProduct
+        })
+        return productsIntances
+      })
     )
   }
 
-  getSingleProduct(id: string) {
-    const url = `${baseUrl}/products/${id}`;
+  getSingleProduct(query: string) {
+    
+    let url = `${baseUrl}/products?code=${query}`
+    if (query.length > 3) {
+      url = `${baseUrl}/products?id=${query}`;;
+    }
+
     return this.http.get<{ok: Boolean, product: Product}>(url).pipe(
       map(({product}) => product )
     )
@@ -60,6 +72,8 @@ export class ProductsService {
 
   addProduct(productForm: any ) {
     const url = `${baseUrl}/products`;
+
+    console.log(productForm)
 
     const formData = this.toProductData(productForm);
 

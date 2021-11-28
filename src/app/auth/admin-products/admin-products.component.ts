@@ -19,6 +19,7 @@ export class AdminProductsComponent implements OnInit {
 
   productForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
+    code: ['', [Validators.required, Validators.minLength(3)]],
     price: ['', [Validators.required,  Validators.min(1)]],
     image: [null],
     characteristicName: [''],
@@ -41,9 +42,8 @@ export class AdminProductsComponent implements OnInit {
   
   loadProducts() {
     this.productService.getProducts().subscribe((products) => {
-      console.log(products)
-      this.products = products.map(({_id ,name, price, imageUrl, characteristics }) => {
-        return new Product(_id, name, price, imageUrl, characteristics)
+      this.products = products.map(({_id ,name, code, price, imageUrl, characteristics }) => {
+        return new Product(_id, name, price, imageUrl, characteristics, code)
       })
     })
   }
@@ -52,6 +52,7 @@ export class AdminProductsComponent implements OnInit {
     // reset previuos product data
     this.characteristicKeys = [];
     this.characteristic = {};
+    this.characteristicKeys = [];
     this.showCharacteristics = false;
 
     if (!prodId) {
@@ -60,7 +61,7 @@ export class AdminProductsComponent implements OnInit {
     }
 
     this.productService.getSingleProduct(prodId!).subscribe((product) => {
-      const { name, price, imageUrl, characteristics } = product;
+      const { name, code, price, imageUrl, characteristics } = product;
       this.selectedProduct = product;
       let characteristicKey = ''
       let characteristicValue = [];
@@ -77,7 +78,8 @@ export class AdminProductsComponent implements OnInit {
         }
       }
       this.productForm.setValue({
-        name, 
+        name,
+        code, 
         price, 
         image: imageUrl![0] || 'no-image', 
         characteristicName: characteristicKey, 
@@ -132,7 +134,9 @@ export class AdminProductsComponent implements OnInit {
     this.productService.addProduct(productData).subscribe((resp : any) => {
       if (resp.ok) {
         Swal.fire('New product added!', `New Product ${productData.name}`, 'success')
-        this.productForm.reset()
+        this.productForm.reset();
+        this.characteristic = {};
+        this.characteristicKeys = [];
         this.loadProducts();
       } else {
         Swal.fire('Opps', 'A error ocurrs', 'error');

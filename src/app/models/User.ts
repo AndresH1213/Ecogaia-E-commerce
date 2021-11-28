@@ -1,21 +1,14 @@
-import { Product } from 'src/app/models/Product';
+import { Cart } from '../interfaces/product.interface';
 
 
 export class User {
     constructor(
         public email: string,
-        public role?: 'CUSTOMER' | 'CLIENT' | 'ADMINISTRATOR',
+        public role: 'CLIENT' | 'ADMINISTRATOR',
         public uid?: string,
         public cart?: Cart,
+        public phoneNumber?: number,
+        public address?: string,
     ) { }
 };
 
-interface Cart {
-    products: ProductCart;
-    totalValue: number;
-}
-
-interface ProductCart {
-    item: Product;
-    quantity: number;
-}

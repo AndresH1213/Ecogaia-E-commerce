@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductPicked } from '../../../interfaces/product.interface';
 
 @Component({
   selector: 'app-pitillo',
@@ -12,7 +11,7 @@ export class StrawComponent implements OnInit {
   public catalog: string[] = ['assets/images/straw2.webp','assets/images/straw1.webp']
   public cant: number = 1;
   public color: string = '';
-  selected: ProductPicked = {
+  selected: any = {
     code: 'PPG',
     cant: 1,
     color: ''

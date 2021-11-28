@@ -17,7 +17,6 @@ export class HelpersService {
   }
 
   getCities(state: string) {
-    console.log(state)
     const url = `https://www.datos.gov.co/resource/xdk5-pm3f.json?departamento=${state}`
     return this.http.get<City[]>(url).pipe(
       map((dataCities)=> {
