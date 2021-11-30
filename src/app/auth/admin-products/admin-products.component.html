@@ -58,7 +58,11 @@
                                     style="width: 300px;" 
                                     class="form-control file-input mt-1 ms-1"  
                                     (change)="onImageChange($event.target)">      
-                            <button class="btn btn-outline-dark ms-1" type="button" (click)="showIputFileImage()">{{ inputImageStateText }}</button>     
+                            <button class="btn btn-outline-dark ms-1" 
+                                    type="button" 
+                                    (click)="showIputFileImage()"
+                                    [pTooltip]="tooltipImageStateText" 
+                                    tooltipPosition="top">{{ inputImageStateText }}</button>     
                             
                             <!-- update / add image  -->
                             <div  class="ms-5"  *ngIf="selectedProduct">
@@ -82,7 +86,11 @@
 
                     <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
-                            <button class="btn btn-light"  type="button" (click)="addCharacteristic()">Add</button>
+                            <button class="btn btn-light"  
+                                    type="button" 
+                                    (click)="addCharacteristic()"
+                                    pTooltip="Add new product's characteristic" 
+                                    tooltipPosition="top">Add</button>
                             <input type="text" pInputText placeholder="characteristic" formControlName="characteristicName">      
                             <input type="text" pInputText placeholder="value" formControlName="characteristicValue">      
                         </div>

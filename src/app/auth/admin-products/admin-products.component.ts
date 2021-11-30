@@ -32,6 +32,7 @@ export class AdminProductsComponent implements OnInit {
 
   public inputFileImage: boolean = false;
   public inputImageStateText = 'Subir';
+  public tooltipImageStateText = 'Subir imagen desde PC';
 
   constructor(private fb: FormBuilder,
               private productService: ProductsService) { }
@@ -60,23 +61,21 @@ export class AdminProductsComponent implements OnInit {
       return this.productForm.reset();
     }
 
+    // When a product is selected for modification
     this.productService.getSingleProduct(prodId!).subscribe((product) => {
-      const { name, code, price, imageUrl, characteristics } = product;
+      const { name, code, price, imageUrl, characteristics: characteristicsDB } = product;
       this.selectedProduct = product;
+
+      // Atributes of the form, these are set this way for DIV representation of the characteristics in the HTML
       let characteristicKey = ''
       let characteristicValue = [];
-      console.log(characteristics)
-      // if the product has characteristcis, load with the first one for UX
-      if (characteristics) {
-        characteristicKey = Object.keys(characteristics!)[0];
-        characteristicValue = characteristics[characteristicKey];
-        if (!Array.isArray(characteristicValue)) {
-          characteristicValue = [characteristicValue]
-        } 
-        this.characteristic = {
-          [characteristicKey] : characteristicValue
-        }
+  
+      // check for characteristic of the product and assign to the global variable in case of future modifications made by user
+      if (characteristicsDB) {
+        // assign the characteristicDB to the global variable and returns the key and value in order to fill the form inputs
+        [characteristicKey, characteristicValue] = this.setCharacteristicGlobalVariable(characteristicsDB) 
       }
+
       this.productForm.setValue({
         name,
         code, 
@@ -88,9 +87,23 @@ export class AdminProductsComponent implements OnInit {
     })
   }
 
+  setCharacteristicGlobalVariable(characteristicsDB: any) {
+    // if the product has characteristcis, load with the first one for UX
+    let characteristicKey = Object.keys(characteristicsDB!)[0];
+    let characteristicValue = characteristicsDB[characteristicKey];
+    // if characteristic value is retrieve as string is coverted to array because it can be more than one option
+    if (!Array.isArray(characteristicValue)) {
+      characteristicValue = [characteristicValue]
+    }
+
+    // set every characteristic of the product retrieve from DB to the characteristiv memory variable
+    this.characteristic = characteristicsDB
+    return [characteristicKey, characteristicValue]
+  }
+
   addCharacteristic() {
     if (!this.productForm.get('characteristicName')?.value || !this.productForm.get('characteristicValue')?.value) {
-      return 
+      return // do nothing if there no value in one of the input key or value
     }
     this.showCharacteristics = true;
     const characteristicKey = this.productForm.get('characteristicName')?.value;
@@ -108,7 +121,7 @@ export class AdminProductsComponent implements OnInit {
       [characteristicKey]: characteristicSet
     };
     this.characteristicKeys = Object.keys(this.characteristic);
-    console.log(this.productForm.value)
+
   }
 
   pushCombo() {
@@ -127,17 +140,19 @@ export class AdminProductsComponent implements OnInit {
   createProduct() {
     const productData = this.productForm.value;
     // if theres a characteristic in the characteristicObject add to the productData
-    // this because in the producform we store just charcName and charcValue
+    // this because in the produc form we store only charcName and charcValue
     if (this.characteristic) {
       productData.characteristics = JSON.stringify(this.characteristic)
     }
     this.productService.addProduct(productData).subscribe((resp : any) => {
       if (resp.ok) {
         Swal.fire('New product added!', `New Product ${productData.name}`, 'success')
+
         this.productForm.reset();
         this.characteristic = {};
         this.characteristicKeys = [];
         this.loadProducts();
+
       } else {
         Swal.fire('Opps', 'A error ocurrs', 'error');
       }
@@ -197,6 +212,7 @@ export class AdminProductsComponent implements OnInit {
   showIputFileImage() {
     this.inputFileImage = this.inputFileImage ? false : true;
     this.inputImageStateText = this.inputImageStateText === 'URL' ? 'Subir' : 'URL';
+    this.tooltipImageStateText = this.inputImageStateText === 'URL' ? 'Asignar imagen por URL' : 'Subir imagen desde PC';
 
     // reset the previuos input value
     this.productForm.get('image')?.reset();
