@@ -1,36 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+// Prime NG
+import { CarouselModule } from 'primeng/carousel';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import { CatalogRoutingModule } from './catalog-routing.module';
 
-import { BrushHairComponent } from './CCB/brush-hair.component';
+// Components
+import { AddCartInputComponent } from '../components/add-cart-input/add-cart-input.component';
 import { ButtonBackProductsComponent } from '../components/button-back-products/button-back-products.component';
+import { ImageCarouselComponent } from '../components/image-carousel/image-carousel.component';
+
+// Pages
+import { BrushHairComponent } from './CCB/brush-hair.component';
 import { ComboComponent } from './combo/combo.component';
 import { CupComponent } from './CMT/cup.component';
-import { ImageCarouselComponent } from '../components/image-carousel/image-carousel.component';
 import { StrawComponent } from './PPG/straw.component';
 import { ToothbrushComponent } from './CDD/toothbrush.component';
-import { PagesModule } from '../pages.module';
-import { CarouselModule } from 'primeng/carousel';
 
 
 @NgModule({
   declarations: [
+    // pages
     BrushHairComponent,
     ComboComponent,
     CupComponent,
     StrawComponent,
     ToothbrushComponent,
+    // components
     ButtonBackProductsComponent,
-    ImageCarouselComponent
+    ImageCarouselComponent,
+    AddCartInputComponent
   ],
   imports: [
     CommonModule,
     CatalogRoutingModule,
     FormsModule,
     CarouselModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProgressSpinnerModule
   ],
 })
 export class CatalogModule { }

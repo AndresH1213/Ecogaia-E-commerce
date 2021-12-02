@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/Product';
 import Swal from 'sweetalert2';
 import { ProductsService } from '../../services/products.service';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -13,9 +14,6 @@ export class AdminProductsComponent implements OnInit {
   products: Product[] = [];
   selectedProductID: string = "";
   selectedProduct: Product | undefined;
-
-  addCombo: Product | undefined;
-  newCombo: Product[] = [];
 
   productForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -35,7 +33,8 @@ export class AdminProductsComponent implements OnInit {
   public tooltipImageStateText = 'Subir imagen desde PC';
 
   constructor(private fb: FormBuilder,
-              private productService: ProductsService) { }
+              private productService: ProductsService,
+              private uploadFile: FileUploadService) { }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -71,7 +70,7 @@ export class AdminProductsComponent implements OnInit {
       let characteristicValue = [];
   
       // check for characteristic of the product and assign to the global variable in case of future modifications made by user
-      if (characteristicsDB) {
+      if (!!Object.keys(characteristicsDB).length) {
         // assign the characteristicDB to the global variable and returns the key and value in order to fill the form inputs
         [characteristicKey, characteristicValue] = this.setCharacteristicGlobalVariable(characteristicsDB) 
       }
@@ -124,19 +123,6 @@ export class AdminProductsComponent implements OnInit {
 
   }
 
-  pushCombo() {
-    if (!this.addCombo) {
-      console.log('No hay producto');
-      return 
-    }
-    this.newCombo.push(this.addCombo!);
-  }
-
-  removeCombo(prodId: string) {
-    const indexProduct = this.newCombo.findIndex(product => product._id === prodId);
-    this.newCombo.splice(indexProduct, 1);
-  }
-
   createProduct() {
     const productData = this.productForm.value;
     // if theres a characteristic in the characteristicObject add to the productData
@@ -172,11 +158,9 @@ export class AdminProductsComponent implements OnInit {
     }
 
     if (this.characteristic) {
-      data.characteristics = {...this.characteristic};
-    } else {
-      data.characteristics = {}
+      data.characteristics = JSON.stringify(this.characteristic);
     }
-
+    
     this.productService.updateProduct(prodId!, data ).subscribe(resp => {
       if (resp.ok) {
         Swal.fire('Updated!', resp.msg, 'success')
@@ -225,6 +209,25 @@ export class AdminProductsComponent implements OnInit {
       this.productForm.patchValue({image: file})
     }
 
+  }
+
+  uploadFileImage(toUpdate: boolean) {
+    const file = this.productForm.get('image')?.value
+    if (!file) {
+      Swal.fire('No file', 'No has subido ningún archivo todavía', 'warning')
+      return
+    }
+    // to update replace the first image (cover image)
+    if (toUpdate) {
+      this.uploadFile.updatePhoto(file,'product',this.selectedProductID, true).then(resp => {
+        Swal.fire('Success', `imagen con el nombre ${resp} agregada`, 'success')
+      }).catch(err => Swal.fire('Ups', `Ocurrio el siguiente error: ${err} `, 'error'))
+      return 
+    }
+    this.uploadFile.updatePhoto(file,'product', this.selectedProductID).then(resp => {
+      Swal.fire('Success', `imagen con el nombre ${resp} agregada`, 'success')
+    }).catch(err => Swal.fire('Ups', `Ocurrio el siguiente error: ${err} `, 'error'))
+    
   }
 
 }

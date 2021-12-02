@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit{
   
   title: string= 'ECOGAIA';
   subtitle: boolean = true;
+  itemsInCart: string = '2'
   
   constructor( private router: Router) {}
 
@@ -22,7 +23,6 @@ export class NavbarComponent implements OnInit{
     // Change the title of the navbar depending on the route
     this.router.events.pipe(
       filter<any>(e => e instanceof NavigationEnd),
-      tap(console.log),
       map( eventdata => {
         this.subtitle = false;
         switch (eventdata.url) {

@@ -8,5 +8,12 @@ export interface Cart {
 
 export interface ProductCart {
     item: Product;
-    quantity: number;
+    cant: number;
+    characteristics?: any;
+}
+
+export interface SelectedProduct {
+    product: Product;
+    cant: number;
+    characteristics?: any;
 }

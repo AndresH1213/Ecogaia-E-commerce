@@ -1,0 +1,39 @@
+<p-card>
+    <h3>Armar el combo</h3>
+    <hr>
+    <h4>Products</h4>
+    <div class="form-control">
+        <p-dropdown [options]="products" 
+                    [(ngModel)]="addCombo" 
+                    optionLabel="name"
+                    placeholder="Products to add"
+        ></p-dropdown>
+        <button type="button" 
+                class="btn btn-light ms-1 mb-1"
+                (click)="pushCombo()"><i class="pi pi-plus-circle"></i></button>
+    </div>
+
+    <div class="card mt-3">
+        <h4 class="ms-2" *ngFor="let comboProd of newCombo">{{ comboProd.name }}
+            <button type="button" class="btn btn-light" (click)="removeCombo(comboProd._id!)">
+                <i class="pi pi-minus-circle"></i>
+            </button>
+        </h4>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">$</span>
+            <input type="number" pInputText placeholder="Price">   
+        </div>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">Image Url</span>
+            <input type="text" pInputText placeholder="url">      
+        </div>
+    </div>
+
+    <p-button class="ms-4" icon="pi pi-save" label="Guardar Combo"></p-button>
+</p-card>

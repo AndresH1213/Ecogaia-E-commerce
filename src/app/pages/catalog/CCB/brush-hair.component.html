@@ -1,47 +1,17 @@
-<div class="container-individual">
+<div class="container-individual animate__animated animate__fadeIn" *ngIf="product" >
     <section class="product-container">
         <app-button-back-products></app-button-back-products>
 
-        <app-image-carousel [arrayImgs]="catalog"></app-image-carousel>
+        <app-image-carousel [arrayImgs]="images"></app-image-carousel>
 
-        <form class="product-properties form-group">
-            <div class="input-cant">
-                <span class="input-group-btn">
-                    <button (click)="changeValue(-1)"
-                            class="cant-btn"
-                            type="button">
-                        <i class="pi pi-minus"></i>
-                    </button>
-                </span>
-                <input type="number" 
-                       class="form-control input"
-                       placeholder="cant"
-                       [(ngModel)]="cant"
-                       name="cant"
-                       max=100
-                       min=0
-                       (ngModelChange)="onChange($event)">
-            
-                <span class="input-group-btn">
-                    <button (click)="changeValue(1)"
-                            class="cant-btn"
-                            type="button">
-                        <i class="pi pi-plus"></i>
-                    </button>
-                </span>
-            </div>
-            <button type="button" (click)="addCart()" class="btn-cart">
-                Añadir al carrito
-                <i class="uil uil-shopping-cart-alt"></i>
-            </button>
-        </form>
+        <app-add-cart-input *ngIf="product" [product]="product"></app-add-cart-input>
         <div class="previous-page" routerLink="/product/CMT"><i class="pi pi-chevron-left"></i></div>
     </section>
     <section class="description-container">
         <div class="next-page" routerLink="/product/CDD"><i class="pi pi-chevron-right"></i></div>
-        <h1>CEPILLO DE CABELLO DE BAMBÚ</h1>
+        <h1>{{ product.name | uppercase}}</h1>
         <hr>
-        <h2>$20.000</h2>
+        <h2>${{ product.price | number }}</h2>
         <p class="description-subtitle">
             Un claro ejemplo de un producto que te cuida a ti y también al planeta.
         </p>
@@ -55,4 +25,9 @@
             Medidas: 8cm x 25cm
         </p>
     </section>
+</div>
+
+<div *ngIf="!product" class="center-spinner animate__animated animate__fadeOut">
+    <img class="preloader"
+    src="assets/images/preloader-image.png"/>
 </div>

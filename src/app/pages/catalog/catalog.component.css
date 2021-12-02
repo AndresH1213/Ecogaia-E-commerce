@@ -66,77 +66,6 @@
     text-align: start;
 }
 
-.product-properties {
-    display: grid;
-    width: 70%;
-    grid-template-columns: 1fr 2fr;
-    gap: 10px;
-    place-content: center;
-    place-items: center;
-    grid-template-rows: repeat(3, 1fr);
-}
-
-.input-cant {
-    display: flex;
-    grid-column: 1/2;
-}
-
-.cant-btn {
-    border: none;
-    background-color: white;
-    color: var(--color-button);
-    height: 100%;
-    margin: 0px;
-}
-
-.input {
-    width: 90%;
-    height: 100%;
-    border: none;
-}
-
-.input-label {
-    background-color: var(--color-button);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.input-cant .input {
-    text-align: center;
-    color: var(--color-button);
-    font-size: var(--font-size-lg);
-}
-
-.input-color::after {
-    content: ' ';
-    width: 5px;
-    height: 5px;
-    display: inline-block;
-    background-color: tomato;
-    border-radius: 50%;
-}
-
-.btn-cart {
-    background-color: var(--color-button);
-    border: none;
-    color: white;
-    height: 100%;
-    font-size: var(--font-size-md);
-    font-family: var(--font-titles);
-    font-weight: 600;
-    width: 90%;
-}
-.btn-cart > i {
-    font-size: var(--font-size-lg);
-}
-
 .scroll-down {
     color: var(--color-button);
     position: absolute;
@@ -165,6 +94,23 @@
     transition-duration: .2s;
 }
 .previous-page:hover {transform: translateX(-2px);}
+
+/* loader spiner */
+.center-spinner {
+    position: absolute;
+    top: 45vh;
+    left: 45vw;
+}
+
+.preloader{
+    width: 100px; height: 100px;
+	background-size: contain;
+	animation: spin 2s linear infinite;
+}
+@keyframes spin {
+	to { transform: rotate(360deg) }
+}
+
 
 @media only screen and (max-width: 760px) {
     .container-individual {

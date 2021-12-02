@@ -33,10 +33,16 @@ export class ProductsService {
     
     // append the values
     formData.append('name', name);
-    formData.append('code', code);
-    formData.append('imageUrl', image);
+    if (code) {
+      formData.append('code', code);
+    }
+    if (image) {
+      formData.append('imageUrl', image);
+    }
     formData.append('price', price);
-    formData.append('characteristics', characteristics)
+    if (characteristics) {
+      formData.append('characteristics', characteristics)
+    }
   
     return formData
   }
@@ -66,7 +72,16 @@ export class ProductsService {
     }
 
     return this.http.get<{ok: Boolean, product: Product}>(url).pipe(
-      map(({product}) => product )
+      map(({product}) => {
+        return new Product(
+          product._id,
+          product.name,
+          product.price,
+          product.imageUrl,
+          product.characteristics,
+          product.code
+        )
+      } )
     )
   }
 

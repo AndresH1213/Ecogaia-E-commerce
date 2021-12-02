@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/Product';
 
 @Component({
   selector: 'app-brush-hair',
@@ -7,23 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrushHairComponent implements OnInit {
 
-  public cant: number = 1;
+  public product!: Product;
 
-  public catalog: string[] = ['assets/images/hairbrush1.webp','assets/images/hairbrush2.webp','assets/images/cup1.webp']
+  public images: string[] = [];
+ 
 
-  constructor() { }
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-  }
-  changeValue(value: number) {
-    this.cant  += value;
-  }
-  onChange(value: any ) {
-    console.log(value)
-  }
-
-  addCart() {
-    console.log(this.cant)
+    this.productService.getSingleProduct('CCB').subscribe(product => {      
+      this.images = product.allImages;
+      this.product = product
+    })
   }
 
 }

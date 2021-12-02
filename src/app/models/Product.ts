@@ -17,17 +17,18 @@ export class Product {
     }
 
     get allImages() {
+        let imagesArray = []
         for (let i = 0; i < this.imageUrl.length; i++ ) {
             //upload/products/no-image
             if (!this.imageUrl[i]) {
-                return `${baseUrl}/products/image/product/no-image`;
+                imagesArray.push(`${baseUrl}/products/image/product/no-image`)
             } else if (this.imageUrl[i].includes('http')) {
-                return this.imageUrl[i]
+                imagesArray.push(this.imageUrl[i])
             } else {
-                return `${baseUrl}/products/image/product/${this.imageUrl[i]}`
+                imagesArray.push(`${baseUrl}/products/image/product/${this.imageUrl[i]}`)
             }
         }
-        return `${baseUrl}/products/image/product/no-image`;
+        return imagesArray
     }
 
     get oneImage() {

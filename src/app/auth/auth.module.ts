@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { ButtonModule } from 'primeng/button';
 import {TooltipModule} from 'primeng/tooltip';
+import { AdminComboComponent } from './admin-combo/admin-combo.component';
 
 
 
 @NgModule({
   declarations: [
     LogInComponent,
-    AdminProductsComponent
+    AdminProductsComponent,
+    AdminComboComponent
   ],
   imports: [
     CommonModule,

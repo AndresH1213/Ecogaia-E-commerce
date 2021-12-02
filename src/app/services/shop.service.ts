@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
-import { Cart } from '../interfaces/product.interface';
-import { of } from 'rxjs';
-import { User } from '../models/User';
+import { Cart, SelectedProduct } from '../interfaces/product.interface';;
 
 const baseUrl = environment.baseUrl
 
@@ -13,7 +11,7 @@ const baseUrl = environment.baseUrl
 })
 export class ShopService {
 
-  public cart: Cart = JSON.parse(localStorage.getItem('cart') || '')
+  public cart: Cart | undefined;
   private _preferenceId: string | undefined;
   constructor(private http: HttpClient) { }
 
@@ -22,6 +20,9 @@ export class ShopService {
   }
 
   get getCart() {
+    if (localStorage.getItem('cart')) {
+      this.cart = JSON.parse(localStorage.getItem('cart')!)
+    }
     return this.cart
   }
 
@@ -37,30 +38,57 @@ export class ShopService {
     );
   }
 
-  addProductCart(productData: any) {
+  addProductCart(selectedData: SelectedProduct) {
+    let newCartData: Cart | undefined = this.getCart;
+    const newProduct = selectedData.product;
+    let newCant = selectedData.cant;
+    const newCharacteristics = selectedData.characteristics
+    if (!this.getCart) {
+      const totalValue = newProduct.price * newCant
+      newCartData = {
+        products: [{
+          item: newProduct,
+          cant: newCant,
+          characteristics : newCharacteristics
+        }],
+        totalValue
+      }
+      const cartDataStringify = JSON.stringify(newCartData);
+      localStorage.setItem('cart', cartDataStringify);
+      return
+    }
+    const oldCartProducts = this.getCart.products.map(product => product.item._id);
+    const matchProducIndex = newCartData!.products.findIndex(({item, characteristics}) => {
+      console.log(JSON.stringify(characteristics),'findindex',JSON.stringify(newCharacteristics))
+      return item._id === newProduct._id && JSON.stringify(characteristics) === JSON.stringify(newCharacteristics)
+    });
+    console.log(matchProducIndex, 'match index')
+
+    if (oldCartProducts.includes(newProduct._id) && matchProducIndex >= 0) {
+      
+      const productInCart = newCartData?.products[matchProducIndex];
+      console.log(productInCart, 'matin');
+      productInCart!.cant += newCant;
+      newCartData?.products.splice(matchProducIndex, 1, productInCart!);
+      newCartData!.totalValue += newProduct.price * newCant
+      const newCartDataStringity = JSON.stringify(newCartData);
+      localStorage.setItem('cart', newCartDataStringity);
+      return
+    }
     
+    newCartData?.products.push({
+      item: newProduct,
+      cant: newCant,
+      characteristics: newCharacteristics
+    });
+    newCartData!.totalValue += newProduct.price * newCant;
+    const newCartDataStringity = JSON.stringify(newCartData);
+    localStorage.setItem('cart', newCartDataStringity);
   }
+  
 
   deleteProductCart( productData: any) {
 
-  }
-
-  retrieveCart(user: User) {
-
-    const url = `${baseUrl}/shop/cart`
-
-    return this.http.post(url, {
-      user
-    })
-  }
-
-  saveCart(user: User) {
-    if (!this.cart) {
-      return of(false)
-    }
-    const url = `${baseUrl}/shop/save-cart`
-
-    return this.http.post(url, user)
   }
   
   saveClient(clientData: any) {

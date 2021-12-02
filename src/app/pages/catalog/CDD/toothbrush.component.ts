@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/Product';
 
 @Component({
   selector: 'app-individual',
@@ -8,48 +9,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ToothbrushComponent implements OnInit {
 
-  public catalog: string[] = ['assets/images/toothbrush2.webp','assets/images/toothbrush.webp']
-
-  public colors: string[] = [];
-  public durezas: string[] = [];
-  public cantidad: number = 1;
-  public pickedProduct: any = {
-    code: 'CDD',
-    color: 'blanco',
-    dureza: '1',
-    cant: 1,
-  }
-
-  public productForm = this.fb.group({
-    color: ['', Validators.required],
-    dureza: ['', Validators.required],
-    cant: [1, [Validators.min(1), Validators.max(15)]]
-  })
+  public catalog: string[] = []
+  public product!: Product;
 
   constructor(
-    private fb: FormBuilder
-  ) {
-    this.colors = ['naranja', 'blanco', 'amarillo'];
-    this.durezas = ['1','2','3','4']
-  }
+    private productService: ProductsService
+  ) {}
 
   ngOnInit(): void {
-  }
-
-  changeValue(value: number) {
-    let newCant = this.productForm.get('cant')?.value + value;
-    this.productForm.setValue({...this.productForm.value, cant: newCant});
-    this.pickedProduct.cant = newCant;
-    this.pickedProduct.color = this.productForm.get('color')?.value;
-    this.pickedProduct.dureza = this.productForm.get('dureza')?.value;
-  }
-  onChange(value: any ) {
-    console.log(value)
-  }
-
-  addCart() {
-    console.log(this.productForm.value);
-    console.log(this.pickedProduct)
+    this.productService.getSingleProduct('CDD').subscribe(product => {
+      this.catalog = product.allImages;
+      this.product = product;
+    })
   }
 
 }

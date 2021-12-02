@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
+import { AddCartInputComponent } from './components/add-cart-input/add-cart-input.component';
 
 
 @NgModule({

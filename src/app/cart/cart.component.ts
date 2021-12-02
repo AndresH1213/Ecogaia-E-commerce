@@ -92,7 +92,7 @@ export class CartComponent implements OnInit {
   }
 
   getCart() {
-    this.cart = JSON.parse(localStorage.getItem('cart') || '')
+    // this.cart = JSON.parse(localStorage.getItem('cart') || '')
   }
 
   saveClient() {

@@ -13,13 +13,16 @@ export class FileUploadService {
   async updatePhoto (
     file: File,
     type: 'product' | 'combo',
-    id: string
+    id: string,
+    updateCoverImage: boolean = false
   ) {
     try {
       const url = `${baseUrl}/products/image/${type}/${id}`;
       const formData = new FormData();
       formData.append('image', file);
-
+      if (updateCoverImage) {
+        formData.append('forUpdate', 'true')
+      }
       const resp = await fetch(url, {
         method: 'PUT',
         headers: {

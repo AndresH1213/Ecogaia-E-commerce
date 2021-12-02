@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/Product';
 
 @Component({
   selector: 'app-pitillo',
@@ -7,28 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StrawComponent implements OnInit {
 
-  public colors: string[] = [];
-  public catalog: string[] = ['assets/images/straw2.webp','assets/images/straw1.webp']
-  public cant: number = 1;
-  public color: string = '';
+  public catalog: string[] = []
+  public product: any;
+
   selected: any = {
     code: 'PPG',
     cant: 1,
     color: ''
   }
-  constructor() { }
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-    this.colors = ['blanco','negro','rojo','azul']
-  }
-
-  changeValue(value: number) {
-    this.selected.cant += value;
-    this.cant += value;
-  }
-
-  addCart() {
-    console.log(this.cant, this.color)
+    this.productService.getSingleProduct('PPG').subscribe(product => {
+      this.catalog = product.allImages;
+      this.product = product
+    })
   }
 
 }

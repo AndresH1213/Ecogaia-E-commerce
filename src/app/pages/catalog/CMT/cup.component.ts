@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/Product';
 
 @Component({
   selector: 'app-cup',
@@ -7,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CupComponent implements OnInit {
 
+  public product!: Product
+
   public scrollIcon = true;
-  public catalog: string[] = ['assets/images/cup.webp','assets/images/cup2.webp','assets/images/cup1.webp']
+  public catalog: string[] = []
   public tallas!: [string, string];
 
   public selected: any = {
@@ -17,27 +21,21 @@ export class CupComponent implements OnInit {
     talla: ''
   };
   
-  constructor() { }
+  constructor(private productService: ProductsService) { }
   
   ngOnInit(): void {
-    this.selected.cant = 1;
-    // retrieve tallas?
-    this.tallas = ['Talla 1', 'Talla 2']
+    this.productService.getSingleProduct('CMT').subscribe(product => {
+      this.catalog = product.allImages;
+      this.product = product
+    })
   }
-  
-  changeValue(value: number) {
-    this.selected.cant += value;
-  }
+
   onChange(value: any ) {
     console.log(value)
   }
   
   changeNum(event: any) {
     console.log(event.target.value)
-  }
-  
-  addCart() {
-    console.log(this.selected)
   }
 
   scrolldown () {

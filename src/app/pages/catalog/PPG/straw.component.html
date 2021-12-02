@@ -1,49 +1,11 @@
-<div class="container-individual">
+<div class="container-individual animate__animated animate__fadeIn" *ngIf="product">
     <section class="product-container">
         <app-button-back-products></app-button-back-products>
+        
         <app-image-carousel [arrayImgs]="catalog"></app-image-carousel>
+        
+        <app-add-cart-input *ngIf="product" [product]="product"></app-add-cart-input>
 
-        <form class="product-properties form-group">
-            <label for="colores" class="input-label">Color</label>
-            <select name="colores" 
-                    class="input form-control"
-                    [(ngModel)]="color"
-                    name="color">
-                <option value="">Selecccione un color...</option>
-                <option *ngFor="let item of colors"
-                        [value]="item"
-                        class="input-color"
-                        >{{item}}</option>
-            </select>
-            <div class="input-cant">
-                <span class="input-group-btn">
-                    <button (click)="changeValue(-1)"
-                            class="cant-btn"
-                            type="button">
-                        <i class="pi pi-minus"></i>
-                    </button>
-                </span>
-                <input type="number" 
-                       class="form-control input"
-                       placeholder="1"
-                       [(ngModel)]="cant"
-                       name="cant"
-                       max=100
-                       min=0>
-            
-                <span class="input-group-btn">
-                    <button (click)="changeValue(1)"
-                            class="cant-btn"
-                            type="button">
-                        <i class="pi pi-plus"></i>
-                    </button>
-                </span>
-            </div>
-            <button type="button" class="btn-cart" (click)="addCart()">
-                Añadir al carrito
-                <i class="uil uil-shopping-cart-alt"></i>
-            </button>
-        </form>
         <div class="previous-page" routerLink="/product/CDD"><i class="pi pi-chevron-left"></i></div>
     </section>
     <section class="description-container">
@@ -72,4 +34,9 @@
             </li>
         </ul>
     </section>
+</div>
+
+<div *ngIf="!product" class="center-spinner animate__animated animate__fadeOut">
+    <img class="preloader"
+    src="assets/images/preloader-image.png"/>
 </div>
