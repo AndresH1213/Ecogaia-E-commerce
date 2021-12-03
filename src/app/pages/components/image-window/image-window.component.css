@@ -21,3 +21,17 @@
     height: 310px;
     width: 190px;
 }
+
+@media screen and (min-width: 1504px) {
+    .image-window {
+        border-radius: 140px 140px 0 0;
+        height: 40vh;
+        width: 12vw;
+    }
+
+    .img {
+        border-radius: 135px 135px 0 0;
+        height: 36vh;
+        width: 10.2vw;
+    }
+}

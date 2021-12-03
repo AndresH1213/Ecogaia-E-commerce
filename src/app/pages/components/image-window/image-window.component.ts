@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class imageWindowComponent implements OnInit {
 
-  @Input() product!: string 
+  @Input() imageUrl!: string 
   constructor() { }
 
   ngOnInit(): void {

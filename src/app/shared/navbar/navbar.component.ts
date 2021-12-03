@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
+import { ShopService } from '../../services/shop.service';
 
 
 @Component({
@@ -9,15 +10,16 @@ import { filter, map, tap } from 'rxjs/operators';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   
   title: string= 'ECOGAIA';
   subtitle: boolean = true;
-  itemsInCart: string = '2'
+  itemsInCart: string = '0'
   
-  constructor( private router: Router) {}
+  constructor( private router: Router,
+               private shopService: ShopService) {}
 
-  items!: MenuItem[];
+  itemsMenu!: MenuItem[];
 
   ngOnInit(): void {
     // Change the title of the navbar depending on the route
@@ -37,12 +39,13 @@ export class NavbarComponent implements OnInit{
             return 'ECOGAIA'
         }
       }),
-    )
-      .subscribe(data => {
+    ).subscribe(data => {
         this.title = data
-      })   
+      });
+    
+    this.itemsInCart = this.shopService.getCart?.products.length.toString() || '0'
 
-    this.items = [
+    this.itemsMenu = [
       {
         label: 'Inicio',
         icon: 'pi pi-home',

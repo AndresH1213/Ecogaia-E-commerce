@@ -95,22 +95,6 @@
 }
 .previous-page:hover {transform: translateX(-2px);}
 
-/* loader spiner */
-.center-spinner {
-    position: absolute;
-    top: 45vh;
-    left: 45vw;
-}
-
-.preloader{
-    width: 100px; height: 100px;
-	background-size: contain;
-	animation: spin 2s linear infinite;
-}
-@keyframes spin {
-	to { transform: rotate(360deg) }
-}
-
 
 @media only screen and (max-width: 760px) {
     .container-individual {

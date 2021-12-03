@@ -22,9 +22,19 @@
     --font-titles: 'Libre Baskerville', Verdana, Serif;
     --font-size-lg: 1.5rem; 
     --font-size-md: 1rem; 
-    --font-size-sm: 0.6rem; 
+    --font-size-sm: 0.8rem; 
     
 }
+
+    /* For very Large devices */
+	@media screen and (min-width: 1024px) {
+		:root {
+			/* font */
+			--font-size-lg: 2rem;
+			--font-size-md: 1.5rem; 
+			--font-size-sm: 1.1rem; 
+		}
+	}
 
 body {
     padding: 0px;
@@ -35,6 +45,27 @@ body {
 	background-size: 400% 400%;
 	-webkit-animation: gradient 8s ease infinite;
 	        animation: gradient 8s ease infinite;
+}
+
+
+/* loader spiner */
+.center-spinner {
+    position: absolute;
+    top: 45vh;
+    left: 45vw;
+}
+
+.preloader{
+    width: 100px; height: 100px;
+	background-size: contain;
+	animation: spin 2s linear infinite;
+}
+@keyframes spin {
+	to { transform: rotate(360deg) }
+}
+
+.animate__fadeIn {
+	animation-delay: .3s;
 }
 
 @-webkit-keyframes gradient {

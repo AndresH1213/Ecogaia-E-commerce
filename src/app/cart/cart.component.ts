@@ -7,34 +7,23 @@ import { User } from '../models/User';
 import { HelpersService } from '../services/helpers.service';
 import { ShopService } from '../services/shop.service';
 import { Cart } from '../interfaces/product.interface';
+import { Product } from '../models/Product';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styles: [`
-    .input-cant-cart{
-      width: 50px
-    }
-    .cart-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 10px;
-      margin: auto;
-    }
-    .remove_container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  `
-  ]
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
 
   public states: string[] = [];
   public cities = [];
 
-  public cart!: Cart;
+  public theresCart: boolean = false;
+  public cart: Cart | undefined;
+  public products: Product[] = [];
+  public characteristicTags : string[] = [];
+
 
   public preferenceId: any;
 
@@ -81,18 +70,47 @@ export class CartComponent implements OnInit {
       }),
       switchMap(state => this.helper.getCities(state))
     ).subscribe( (cities: any) => {
-      
       this.cities = cities;
       this.loading = false;
-    })
+    });
+
+    this.theresCart = this.getCart();
+    if (this.theresCart) {
+      
+      this.productsInstaces(this.cart!)
+      
+      this.cart?.products.forEach( product => {
+        const values = Object.values(product.characteristics).join(', ')
+        this.characteristicTags.push(values);
+      })
+    };
+    
   }
 
-  removeItem(item: number) {
-    console.log(item)
+  removeItem(index: number) {
+    this.theresCart = this.shopService.deleteProductCart(index);
+    
+    // if empty cart reset the variables
+    if (!this.theresCart) {
+      this.cart = undefined;
+      this.products = [];
+      this.characteristicTags = [];
+    }
+    this.getCart();
+    console.log(this.cart)
   }
 
   getCart() {
-    // this.cart = JSON.parse(localStorage.getItem('cart') || '')
+    this.cart = this.shopService.getCart;
+    return this.cart ? true : false; 
+  }
+
+  productsInstaces(cart: Cart) {
+    for (let i = 0; i < cart.products.length; i++ ) {
+      const {_id, name, price, imageUrl, characteristics, code} = cart.products[i].item
+      const productCart = new Product(_id,name,price,imageUrl,characteristics,code);
+      this.products.push(productCart)
+    }
   }
 
   saveClient() {

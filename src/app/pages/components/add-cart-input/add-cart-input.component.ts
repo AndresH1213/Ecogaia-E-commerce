@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Product } from '../../../models/Product';
 import { ShopService } from '../../../services/shop.service';
 import { SelectedProduct } from '../../../interfaces/product.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-cart-input',
@@ -17,6 +18,7 @@ export class AddCartInputComponent implements OnInit {
 
   characteristicProperties: string[] = []
 
+  public displayAddCart = false;
   public styleGridRows = ''
 
   public cant: number = 1;
@@ -58,8 +60,19 @@ export class AddCartInputComponent implements OnInit {
     this.selectedData.characteristics = this.valuesProperties;
   }
 
+  displayDialog() {
+    this.displayAddCart = true;
+    setTimeout(()=> {
+      this.displayAddCart = false;
+    }, 1200)
+  }
+
   addCart() {
-    this.shopService.addProductCart(this.selectedData)
+    if (!this.selectedData.characteristics && this.selectedData.product.code !== "CCB") {
+      Swal.fire('Te falto algo', 'Escoge una caracteristica', 'info'); return
+    }
+    this.shopService.addProductCart(this.selectedData);
+    this.displayDialog();
   }
 
 }

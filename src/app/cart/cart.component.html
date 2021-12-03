@@ -1,59 +1,90 @@
 <app-navbar></app-navbar>
 
-<div class="container">
+<div class="container cart-page-container">
     
     <div class="row">
-        <div class="col-8">
+        <div class="col-lg-8 col-md-12">
             <div class="container row mt-4">
                     <div class="col-8">
                         <h2>Carrito de compras</h2>
                     </div>
-                    <div class="col">
-                        <h5 class=" mt-3 float-end"><b>3 items</b></h5>
-                    </div>
             </div>
             
-            <div>
+            <div class="products-cart-container" *ngIf="cart">
                 <p-card class="row">
-                    <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-3"><b>Producto</b></div>
-                        <div class="col-2"><b>Precio</b></div>
-                        <div class="col-2"><b>Cantidad</b></div>
-                        <div class="col-2"><b>Subtotal</b></div>
+                    <div class="row cart-title-container">
+                        <div class="col-3 cart-title-image"></div>
+                        <div class="col-3 cart-title-product"><b>Producto</b></div>
+                        <div class="col-2 cart-title-price"><b>Precio</b></div>
+                        <div class="col-2 cart-title-quantity text-center"><b>Cantidad</b></div>
+                        <div class="col-2 cart-title-subtotal text-center"><b>Subtotal</b></div>
                     </div>
                 </p-card>                
-                <p-card class="row mt-1 mb-2" *ngFor="let item of [1,2,3]">
-                    <div class="row">
+                <p-card class="row mt-1 mb-2" *ngFor="let product of cart.products; let i = index">
+                    <div class="row cart-info-container">
                         <div class="col-1 remove_container">
-                            <button type="button" class="btn btn-light" (click)="removeItem(item)">
+                            <button type="button" class="btn btn-light" (click)="removeItem(i)">
                                 <i class="uil uil-trash-alt"></i>
                             </button>
                         </div>
-                        <div class="col-2">
-                            <img src="./assets/images/cup1.webp" class=cart-img alt="">
+                        <div class="col-2 col-sm-0 cart-img-div">
+                            <img [src]="products[i].oneImage" class=cart-img [alt]="product.item.name">
                         </div>
-                        <div class="col-3">Combo 1</div>
-                        <div class="col-2">$ 50.000</div>
-                        <div class="col-2">
-                            <input type="number" class="input-cant-cart">
+                        <div class="col-3">
+                            <p class="product-name">
+                                {{ product.item.name }}
+                            </p>
+                            <p *ngIf="product.characteristics" class="characteristics-tags">
+                                {{ characteristicTags[i] | titlecase }}
+                            </p>
                         </div>
-                        <div class="col-2">Subtotal</div>
+                        <div class="col-2">
+                            <p>
+                            $ {{product.item.price | number}}
+                            </p>
+                        </div>
+                        <div class="col-2 m">
+                            <div class="cant-product">
+                                <button 
+                                class="cant-btn"
+                                type="button">
+                                    <i class="pi pi-minus"></i>
+                                </button>
+
+                                <p class="cant-num">{{ product.cant }}</p>
+                                
+                                <button 
+                                class="cant-btn"
+                                type="button">
+                                    <i class="pi pi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-2 text-center">
+                            <p>
+                                $ {{ product.item.price * product.cant | number}}
+                            </p>
+                        </div>
                     </div>
                 </p-card>
             </div>
             
         </div>
 
-        <div class="col-4">
+        <div *ngIf="!cart">
+            <h1> No tienes ningún producto en el carrito aún</h1>
+            <img class="image-empty-cart" src="https://img.icons8.com/external-bearicons-outline-color-bearicons/64/000000/external-empty-cart-essential-collection-bearicons-outline-color-bearicons.png"/>
+        </div>
+
+        <div class="col-lg-4 col-md-8 col-sm-12" *ngIf="theresCart">
             
             <div class="container mt-4 order-sumary">
 
                 <h4>Resumen del pedido</h4>
                 <hr>
                 <div class="order-sumary_data row">
-                    <p class="col-6">ITEMS 3</p>
-                    <p class="col-6">$ 457.00</p>
+                    <p class="col-6">ITEMS {{ products.length }}</p>
+                    <p class="col-6">Total: $ {{( theresCart ? cart!.totalValue : 0 ) | number }}</p>
                 </div>
                 <div class="order-shipping">
                     <form [formGroup]="orderForm">
@@ -103,7 +134,7 @@
                                 <button class="btn btn-primary mt-3 float-end"
                                         type="button"
                                         (click)="confirm()">
-                                    confirm
+                                    Confirm
                                 </button>
                             </div>
                         </div>

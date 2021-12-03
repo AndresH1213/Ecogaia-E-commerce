@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpersService } from '../../services/helpers.service';
+import { ProductsService } from '../../services/products.service';
 
 interface imgsPaths {
   name: string;
@@ -15,34 +16,18 @@ interface imgsPaths {
 export class HomeComponent implements OnInit {
 
   images : imgsPaths[] = [];
-  constructor(private help: HelpersService) { 
+  constructor(private help: HelpersService,
+              private productService: ProductsService) { 
   }
   
 
   ngOnInit(): void {
 
-    this.images = [
-      {
-        name: 'cup',
-        path: "assets/images/cup1.webp",
-        productUrl: '/product/CMT'
-      },
-      {
-        name: 'toothbrush',
-        path: "assets/images/toothbrush.webp",
-        productUrl: '/product/CDD'
-      },
-      {
-        name: 'straw',
-        path: "assets/images/straw2.webp",
-        productUrl: '/product/PPG'
-      },
-      {
-        name: 'hairbrush',
-        path: "assets/images/hairbrush1.webp",
-        productUrl: '/product/CCB'
-      }
-    ]
+    this.productService.getProducts().subscribe(products => {
+      this.images = products.map(product => {
+        return {name: product.name, path: product.oneImage, productUrl: `/product/${product.code}`}
+      })
+    })
   }
 
 }

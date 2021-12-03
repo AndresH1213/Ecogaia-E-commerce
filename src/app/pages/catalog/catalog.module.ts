@@ -18,6 +18,7 @@ import { ComboComponent } from './combo/combo.component';
 import { CupComponent } from './CMT/cup.component';
 import { StrawComponent } from './PPG/straw.component';
 import { ToothbrushComponent } from './CDD/toothbrush.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -38,6 +39,9 @@ import { ToothbrushComponent } from './CDD/toothbrush.component';
     CatalogRoutingModule,
     FormsModule,
     CarouselModule,
+    
+    DialogModule,
+
     ReactiveFormsModule,
     ProgressSpinnerModule
   ],

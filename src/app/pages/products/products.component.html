@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="products.length >= 0">
     <div class="row container-box">
         <div class="col-lg-3 col-sm-6 columns-description" *ngFor="let product of products">
             <div class="space-image"></div>
@@ -20,4 +20,9 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="products.length === 0" class="center-spinner animate__animated animate__fadeOut">
+    <img class="preloader"
+    src="assets/images/preloader-image.png"/>
 </div>

@@ -23,6 +23,11 @@ export class ProductsService {
     }
   };
 
+  productImage(imageUrl: string, type: string) {
+    const url = `${baseUrl}/products/image/${type}/${imageUrl}`;
+    return this.http.get(url)
+  }
+
   toProductData(productForm: any) {
 
     const formData = new FormData();

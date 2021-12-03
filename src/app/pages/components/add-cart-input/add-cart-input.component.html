@@ -1,3 +1,6 @@
+<p-dialog header="producto añadido al carrito" [(visible)]="displayAddCart" [style]="{width: '20vw'}" [closable]="false">
+
+</p-dialog>
 <form class="product-properties form-group" [ngStyle]="{'grid-template-rows': styleGridRows}">
 
     <div *ngFor="let propertyName of characteristicProperties" class="characteristic-product-container">
@@ -43,8 +46,7 @@
         </span>
     </div>
     <button type="button" 
-            class="btn-cart"
-            [disabled]="!selectedData.characteristics" 
+            class="btn-cart" 
             (click)="addCart()">
         Añadir
         <i class="uil uil-shopping-cart-alt"></i>

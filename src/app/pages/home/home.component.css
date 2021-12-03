@@ -5,6 +5,10 @@ h1, p {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+p {
+  font-size: var(--font-size-md);
+}
+
 a:link, a:visited, a:hover, a:active {
   color: #786F5A;
   text-decoration: none;
@@ -12,7 +16,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 a > i {
-  font-size: 1.5rem;
+  font-size: var(--font-size-lg);
   cursor: pointer;
 }
 
@@ -23,7 +27,7 @@ a > i:hover {
 .container-home {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     padding-bottom: 1.5rem;
     width: 90vw;
     margin: auto;
@@ -42,28 +46,42 @@ a > i:hover {
   .btn {
     background-color: #91785A;
     color: white;
-    height: 50px;
-    padding: 10px;
+
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   }
 
+
   .btn:hover {
-    background: #786F5A
+    background: #786F5A;
+    transform: translateX(2px);
   }
 
   .img-container {
     display: flex;
+    width: 100%;
     justify-content: center;
+    height: max-content;
+    flex-wrap: wrap-reverse;
+  }
+
+  .image-home {
+    display: flex;
+    justify-content: center;
+    min-width: 300px;
   }
 
 @media only screen and (max-width: 980px) {
     .img-container {
       align-content: center;
     }
-    .container {
-      height: max-content;
-    }
     .container-home {
       height: max-content;
     }
   }
+
+  @media screen and (min-width: 1024px) {
+    .img-container {
+      align-content: center;
+      justify-content: space-evenly;
+    }
+}
