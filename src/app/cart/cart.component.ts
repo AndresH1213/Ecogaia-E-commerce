@@ -28,11 +28,6 @@ export class CartComponent implements OnInit {
   public preferenceId: any;
 
   public user!: User;
-  public userData = {
-    email: 'email@generico',
-    phoneNumber: 12398932,
-    address: 'calle falsa 123'
-  }
 
   orderForm: FormGroup = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
@@ -46,18 +41,22 @@ export class CartComponent implements OnInit {
 
   // UI loading box
   loading: boolean = false;
-
+  buttonMecardoPagoLoaded: boolean = false;
   constructor(private fb: FormBuilder,
               private helper: HelpersService,
               private shopService: ShopService) { }
   
   ngOnInit(): void {
-    get("https://sdk.mercadopago.com/js/v2", () => {
-      //library has been loaded...
-      get("./assets/js/mercado-pago-btn.js",() => {
-        console.log('btn')
-      })
-    });
+    if (!this.buttonMecardoPagoLoaded) {
+      // lazyload of mercadopago libraries
+      get("https://sdk.mercadopago.com/js/v2", () => {
+        //library has been loaded...
+        this.buttonMecardoPagoLoaded = true;
+        get("./assets/js/mercado-pago-btn.js",() => {
+          console.log('btn')
+        })
+      });
+    }
 
     this.states = ['Amazonas','Antioquia','Arauca','Atlántico','Bolivar','Caldas','Caquetá','Casanare','Cauca','Cesar','Chocó',
     'Córdoba','Cundinamarca','Guainía','La Guajira','Guaviare','Huila','Magdalena','Meta','Norte de Santander','Nariño','Putumayo',
@@ -80,11 +79,10 @@ export class CartComponent implements OnInit {
       this.productsInstaces(this.cart!)
       
       this.cart?.products.forEach( product => {
-        const values = Object.values(product.characteristics).join(', ')
+        const values = Object.values(product.characteristics).join(', ');
         this.characteristicTags.push(values);
       })
-    };
-    
+    }; 
   }
 
   removeItem(index: number) {
@@ -122,34 +120,51 @@ export class CartComponent implements OnInit {
     this.shopService.saveClient(saveClientdata).subscribe(console.log)
   }
 
+  changeCantProduct(index: number, value: 1 | -1) {
+    const findProduct = this.cart?.products[index];
+    if (findProduct?.cant === 1 && value !== 1) {
+      return
+    }
+    this.cart!.totalValue += value*findProduct!.item.price
+    findProduct!.cant += value;
+  }
+
+  setOrderData() {
+    
+    const products = this.cart?.products.map(product => {
+      let description = 'No description';
+      if (product.characteristics) {
+        description = Object.values(product.characteristics).join(', ')
+      }
+      return { productId: product.item._id, 
+               quantity: product.cant,
+               description }
+    });
+    const cartData = {
+      products: products,
+      totalValue: this.cart?.totalValue
+    }
+    const userData = {
+      email: this.orderForm.get('email')?.value,
+      phoneNumber: this.orderForm.get('phoneNumber')?.value,
+      state: this.orderForm.get('state')?.value,
+      city: this.orderForm.get('city')?.value,
+      address: this.orderForm.get('address')?.value
+    }
+    return [cartData, userData]
+  }
+
   confirm() {
+
+    const [cartData, userData] = this.setOrderData();
     const orderData = {
-      userId: '',
-      cart: [{
-        product: {
-          _id: 'cualquiera',
-          name: 'producto1',
-          price: 8000      
-        },
-        quantity: 3
-      }],
-      totalPrice: 1,
-      clientAddress: {
-        state: this.orderForm.get('state')?.value,
-        city: this.orderForm.get('city')?.value,
-        address: this.orderForm.get('address')?.value
-      },
-      phoneNumber: 120913092
+      cartData,
+      userData
     }
 
-    const data = {
-      order: orderData.cart,
-      userData: this.userData
-    }
-
-    this.shopService.postOrder(data).subscribe((resp: any) => {
+    this.shopService.postOrder(orderData).subscribe((resp: any) => {
       if (resp.ok) {
-       
+        console.log(this.preferenceId, 'success')
       }
       this.preferenceId = resp.preferenceId
       console.log(this.preferenceId)

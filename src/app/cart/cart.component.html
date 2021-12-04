@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-2 m">
                             <div class="cant-product">
-                                <button 
+                                <button (click)="changeCantProduct(i, -1)"
                                 class="cant-btn"
                                 type="button">
                                     <i class="pi pi-minus"></i>
@@ -53,7 +53,7 @@
 
                                 <p class="cant-num">{{ product.cant }}</p>
                                 
-                                <button 
+                                <button (click)="changeCantProduct(i, 1)"
                                 class="cant-btn"
                                 type="button">
                                     <i class="pi pi-plus"></i>
@@ -83,7 +83,7 @@
                 <h4>Resumen del pedido</h4>
                 <hr>
                 <div class="order-sumary_data row">
-                    <p class="col-6">ITEMS {{ products.length }}</p>
+                    <p class="col-6">Items {{ products.length }}</p>
                     <p class="col-6">Total: $ {{( theresCart ? cart!.totalValue : 0 ) | number }}</p>
                 </div>
                 <div class="order-shipping">

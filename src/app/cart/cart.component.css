@@ -68,6 +68,11 @@ p {
     font-size: var(--font-size-sm)
 }
 
+.cho-container {
+    margin-top: 10px;
+    position: relative;
+}
+
 @media only screen and (max-width: 500px) {
     .cart-title-image, .cart-img-div {
         display: none;
