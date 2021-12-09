@@ -3,8 +3,9 @@
 </p-dialog>
 <form class="product-properties form-group" [ngStyle]="{'grid-template-rows': styleGridRows}">
 
+    <h5 *ngIf="!displayCart" class="combo-product-name">{{ product.name}}</h5>
     <div *ngFor="let propertyName of characteristicProperties" class="characteristic-product-container">
-        
+
         <label [for]="propertyName" class="input-label characteristic-product-input">{{ propertyName | titlecase }}</label>
         <select class="characteristic-select characteristic-product-input"
                 [(ngModel)]="valuesProperties[propertyName]"
@@ -19,7 +20,7 @@
         
     </div>
 
-    <div class="input-cant">
+    <div class="input-cant" *ngIf="displayCart">
         <span class="input-group-btn">
             <button (click)="changeValue(-1)"
                     class="cant-btn"
@@ -47,7 +48,8 @@
     </div>
     <button type="button" 
             class="btn-cart" 
-            (click)="addCart()">
+            (click)="addCart()"
+            *ngIf="displayCart">
         Añadir
         <i class="uil uil-shopping-cart-alt"></i>
     </button>

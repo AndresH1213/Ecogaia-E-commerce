@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
-import { Cart, SelectedProduct } from '../interfaces/product.interface';
+import { Cart, ProductCart } from '../interfaces/product.interface';
 
 const baseUrl = environment.baseUrl
 
@@ -38,10 +38,10 @@ export class ShopService {
     );
   }
 
-  addProductCart(selectedData: SelectedProduct) {
+  addProductCart(selectedData: ProductCart) {
     /* Update cart in the localStorage of the user */
     
-    const newProduct = selectedData.product;
+    const newProduct = selectedData.item;
     const newCharacteristics = selectedData.characteristics;
     // upload the previous cart on the LS
     let newCartData: Cart | undefined = this.getCart;
@@ -53,7 +53,8 @@ export class ShopService {
         products: [{
           item: newProduct,
           cant: newCant,
-          characteristics : newCharacteristics
+          characteristics : newCharacteristics,
+          combo: selectedData.combo
         }],
         totalValue
       }
@@ -85,7 +86,8 @@ export class ShopService {
     newCartData?.products.push({
       item: newProduct,
       cant: newCant,
-      characteristics: newCharacteristics
+      characteristics: newCharacteristics,
+      combo: selectedData.combo
     });
     newCartData!.totalValue += newProduct.price * newCant;
     const newCartDataStringity = JSON.stringify(newCartData);

@@ -42,6 +42,7 @@ body {
     height: max-content;
     box-sizing: border-box;
 	background: linear-gradient(-45deg, #fae5d3ef,#fef9e7ef, rgb(255, 252, 252),white);
+	overflow-x: hidden;
 	background-size: 400% 400%;
 	-webkit-animation: gradient 8s ease infinite;
 	        animation: gradient 8s ease infinite;

@@ -1,5 +1,11 @@
 <div class="image-window">
 
-    <img [src]="imageUrl" alt="product image" class="img">
+    <img [hidden]="loading"
+         (load)="onLoad()"
+         [src]="imageUrl" 
+         alt="product image" 
+         class="img animate__animated animate__fadeIn"
+         >
+    <i class="pi pi-spin pi-spinner" *ngIf="loading" style="font-size: 2rem"></i>
 
 </div>

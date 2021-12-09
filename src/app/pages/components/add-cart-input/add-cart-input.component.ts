@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Product } from '../../../models/Product';
 import { ShopService } from '../../../services/shop.service';
-import { SelectedProduct } from '../../../interfaces/product.interface';
 import Swal from 'sweetalert2';
+import { ProductCart } from '../../../interfaces/product.interface';
+
 
 @Component({
   selector: 'app-add-cart-input',
@@ -13,6 +14,9 @@ import Swal from 'sweetalert2';
 export class AddCartInputComponent implements OnInit {
 
   @Input() product!: Product;
+  @Input() displayCart: boolean = true;
+  
+  @Output() OutputValue: EventEmitter<any> = new EventEmitter(); 
 
   rangeCantControl = new FormControl("", [Validators.max(20), Validators.min(1)])
 
@@ -22,8 +26,8 @@ export class AddCartInputComponent implements OnInit {
   public styleGridRows = ''
 
   public cant: number = 1;
-  public selectedData: SelectedProduct = {
-    product: this.product,
+  public selectedData: ProductCart = {
+    item: this.product,
     cant: 1,
     characteristics: ''
   };
@@ -40,7 +44,7 @@ export class AddCartInputComponent implements OnInit {
     });
     this.styleGridRows = `repeat(${this.characteristicProperties.length + 1}, 1fr)`;
     
-    this.selectedData.product = this.product
+    this.selectedData.item = this.product
   }
 
   changeValue(value: number) {
@@ -58,6 +62,7 @@ export class AddCartInputComponent implements OnInit {
 
   changeValueProp(key: any,value: string) {
     this.selectedData.characteristics = this.valuesProperties;
+    this.OutputValue.emit(this.selectedData.characteristics)
   }
 
   displayDialog() {
@@ -68,7 +73,7 @@ export class AddCartInputComponent implements OnInit {
   }
 
   addCart() {
-    if (!this.selectedData.characteristics && this.selectedData.product.code !== "CCB") {
+    if (!this.selectedData.characteristics && this.selectedData.item.code !== "CCB") {
       Swal.fire('Te falto algo', 'Escoge una caracteristica', 'info'); return
     }
     this.shopService.addProductCart(this.selectedData);

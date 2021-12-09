@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
-
+import { CombosLinkComponent } from './components/combos-link/combos-link.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { OrdersComponent } from './orders/orders.component';
     imageWindowComponent,
     PagesComponent,
     OrdersComponent,
+    CombosLinkComponent,
   ],
   imports: [
     CommonModule,

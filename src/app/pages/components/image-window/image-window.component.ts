@@ -9,9 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class imageWindowComponent implements OnInit {
 
   @Input() imageUrl!: string 
+  public loading: boolean = true;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  onLoad() {
+    this.loading = false;
   }
 
 }

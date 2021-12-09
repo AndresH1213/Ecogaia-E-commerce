@@ -34,7 +34,7 @@
                             <p class="product-name">
                                 {{ product.item.name }}
                             </p>
-                            <p *ngIf="product.characteristics" class="characteristics-tags">
+                            <p *ngIf="product.characteristics && !product.combo" class="characteristics-tags">
                                 {{ characteristicTags[i] | titlecase }}
                             </p>
                         </div>

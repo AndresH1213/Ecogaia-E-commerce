@@ -12,6 +12,7 @@
             <div  *ngFor="let image of images" >
                 <app-image-window class="image-home" [imageUrl]=image.path
                 [routerLink]="image.productUrl"></app-image-window>
+                <i class="pi pi-spin pi-spinner" *ngIf="!image.path" style="font-size: 2rem"></i>
                 <p class="text-center">{{ image.name }}</p>
             </div>
             
@@ -21,6 +22,7 @@
                 <button class="btn" routerLink="/products">ECO TIENDA <i class="uil uil-arrow-circle-right"></i></button>
             </div>
         </div>
+        <app-combos-link></app-combos-link>
     </div>
 
     <div *ngIf="images.length === 0" class="center-spinner animate__animated animate__fadeOut">

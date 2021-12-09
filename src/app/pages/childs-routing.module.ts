@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ComboComponent } from './catalog/combo/combo.component';
 
 const routes: Routes = [
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'product',
     loadChildren: ()=> import('./catalog/catalog.module').then(m => m.CatalogModule)
   },
+  { path: 'combo/:title', component: ComboComponent},
   { path: 'orders', component: OrdersComponent },
   { path: 'about-us', component: AboutUsComponent },
 

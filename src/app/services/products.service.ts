@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Product } from '../models/Product';
 import { environment } from 'src/environments/environment';
+import { AdminService } from './admin.service';
 
 const baseUrl = environment.baseUrl;
 
@@ -10,18 +11,6 @@ const baseUrl = environment.baseUrl;
   providedIn: 'root'
 })
 export class ProductsService {
-
-  get token() {
-    return localStorage.getItem('token') || '';
-  }
-
-  get headers() {
-    return {
-      headers: {
-        'x-token': this.token
-      }
-    }
-  };
 
   productImage(imageUrl: string, type: string) {
     const url = `${baseUrl}/products/image/${type}/${imageUrl}`;
@@ -52,7 +41,10 @@ export class ProductsService {
     return formData
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private admin: AdminService) { }
+  
+  /* CRUD OPERATIONS */
 
   getProducts() {
     const url = `${baseUrl}/products/all`;
@@ -86,32 +78,24 @@ export class ProductsService {
           product.characteristics,
           product.code
         )
-      } )
+      })
     )
   }
-
   addProduct(productForm: any ) {
     const url = `${baseUrl}/products`;
-
-    console.log(productForm)
-
     const formData = this.toProductData(productForm);
-
-    return this.http.post(url, formData, this.headers)
-
+    return this.http.post(url, formData, this.admin.headers)
   }
 
   deleteProduct(id: string) {
     const url = `${baseUrl}/products/${id}`;
-    return this.http.delete<{ok: Boolean, msg: string }>(url, this.headers)
+    return this.http.delete<{ok: Boolean, msg: string }>(url, this.admin.headers)
   }
 
   updateProduct(id: string, productForm: any) {
     const url = `${baseUrl}/products/${id}`;
-
-    console.log(id, productForm, 'updated')
-
     const formData = this.toProductData(productForm);
-    return this.http.put<{ok: Boolean, msg: string }>(url, formData, this.headers)
+    return this.http.put<{ok: Boolean, msg: string }>(url, formData, this.admin.headers)
   }
+
 }

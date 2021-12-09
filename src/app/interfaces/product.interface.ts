@@ -1,4 +1,5 @@
 import { Product } from '../models/Product';
+import { Combo } from '../models/Combo';
 
 
 export interface Cart {
@@ -7,13 +8,8 @@ export interface Cart {
 }
 
 export interface ProductCart {
-    item: Product;
+    item: Product | Combo;
     cant: number;
     characteristics?: any;
-}
-
-export interface SelectedProduct {
-    product: Product;
-    cant: number;
-    characteristics?: any;
+    combo?: boolean
 }

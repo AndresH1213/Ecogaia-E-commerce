@@ -8,6 +8,7 @@ import { HelpersService } from '../services/helpers.service';
 import { ShopService } from '../services/shop.service';
 import { Cart } from '../interfaces/product.interface';
 import { Product } from '../models/Product';
+import { Combo } from '../models/Combo';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,7 @@ export class CartComponent implements OnInit {
 
   public theresCart: boolean = false;
   public cart: Cart | undefined;
-  public products: Product[] = [];
+  public products: (Product | Combo)[] = [];
   public characteristicTags : string[] = [];
 
 
@@ -41,22 +42,15 @@ export class CartComponent implements OnInit {
 
   // UI loading box
   loading: boolean = false;
-  buttonMecardoPagoLoaded: boolean = false;
   constructor(private fb: FormBuilder,
               private helper: HelpersService,
               private shopService: ShopService) { }
   
   ngOnInit(): void {
-    if (!this.buttonMecardoPagoLoaded) {
-      // lazyload of mercadopago libraries
-      get("https://sdk.mercadopago.com/js/v2", () => {
-        //library has been loaded...
-        this.buttonMecardoPagoLoaded = true;
-        get("./assets/js/mercado-pago-btn.js",() => {
-          console.log('btn')
-        })
-      });
-    }
+    // lazyload of mercadopago libraries
+    get("https://sdk.mercadopago.com/js/v2", () => {
+      //library has been loaded...
+    });
 
     this.states = ['Amazonas','Antioquia','Arauca','Atlántico','Bolivar','Caldas','Caquetá','Casanare','Cauca','Cesar','Chocó',
     'Córdoba','Cundinamarca','Guainía','La Guajira','Guaviare','Huila','Magdalena','Meta','Norte de Santander','Nariño','Putumayo',
@@ -73,16 +67,19 @@ export class CartComponent implements OnInit {
       this.loading = false;
     });
 
+    this.initializatedCart();
+  }
+
+  initializatedCart() {
     this.theresCart = this.getCart();
     if (this.theresCart) {
       
       this.productsInstaces(this.cart!)
-      
       this.cart?.products.forEach( product => {
         const values = Object.values(product.characteristics).join(', ');
         this.characteristicTags.push(values);
       })
-    }; 
+    };
   }
 
   removeItem(index: number) {
@@ -94,8 +91,8 @@ export class CartComponent implements OnInit {
       this.products = [];
       this.characteristicTags = [];
     }
-    this.getCart();
-    console.log(this.cart)
+    window.location.reload()
+
   }
 
   getCart() {
@@ -104,10 +101,19 @@ export class CartComponent implements OnInit {
   }
 
   productsInstaces(cart: Cart) {
+    
     for (let i = 0; i < cart.products.length; i++ ) {
-      const {_id, name, price, imageUrl, characteristics, code} = cart.products[i].item
-      const productCart = new Product(_id,name,price,imageUrl,characteristics,code);
-      this.products.push(productCart)
+      const item: any = cart.products[i].item
+      if (item.code) {
+        const {_id, name, price, imageUrl, characteristics, code} = item
+        const productCart = new Product(_id,name,price,imageUrl,characteristics,code);
+        this.products.push(productCart)
+      }
+      if (cart.products[i].combo) {
+        const {_id, name, price, image, products } = item; 
+        const productCart = new Combo(_id, name, price, image, products )
+        this.products.push(productCart)
+      }
     }
   }
 
@@ -169,7 +175,7 @@ export class CartComponent implements OnInit {
       this.preferenceId = resp.preferenceId
       console.log(this.preferenceId)
       localStorage.setItem('preferenceId', this.preferenceId)
-    });    
+    });   
   }
 
 }

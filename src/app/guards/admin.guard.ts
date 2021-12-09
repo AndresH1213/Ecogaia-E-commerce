@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate, CanLoad {
     return this.adminService.validateToken().pipe(
       tap((isAuth) => {
         if (!isAuth) {
-          // this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/');
         }
       })
     );
@@ -31,7 +31,7 @@ export class AdminGuard implements CanActivate, CanLoad {
     return this.adminService.validateToken().pipe(
       tap((isAuth) => {
         if (!isAuth) {
-          // this.router.navigateByUrl('/')
+          this.router.navigateByUrl('/')
         }
       })
     );
