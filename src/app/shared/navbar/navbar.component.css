@@ -62,7 +62,7 @@
 }
 
 .navbar-logo {
-    height: 4rem;
+    height: var(--logo-size);
 }
 
 .button-cart:hover {

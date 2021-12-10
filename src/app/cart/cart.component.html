@@ -89,12 +89,12 @@
                 <div class="order-shipping">
                     <form [formGroup]="orderForm">
                         <label for="email">Email</label>
-                        <input type="text"
+                        <input type="email"
                                 id="email"
                                 class="form-control mb-2"
                                 formControlName="email">
                         <label for="phoneNumber">Celular</label>
-                        <input type="text"
+                        <input type="tel"
                                 id="phoneNumber"
                                 class="form-control mb-2"
                                 formControlName="phoneNumber">
@@ -109,7 +109,7 @@
                             </select>
                         </div>
                     
-                        <div class="row mb-3" *ngIf="cities.length > 0">
+                        <div class="row mb-2" *ngIf="cities.length > 0">
                             <label class="form-label">Municipio: </label>
                             <select class="form-control"
                                     formControlName="city">
@@ -119,17 +119,34 @@
                             </select>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-2">
+                            <label class="form-label">Codigo Postal (ZIP): 
+                                <a href="http://visor.codigopostal.gov.co/472/visor/"   target="_blank">
+                                    <i class="pi pi-search-plus float-end" 
+                                    pTooltip="Buscar el codigo postal" 
+                                    tooltipPosition="top" ></i>
+                                </a>
+                            </label>
+                            <input type="text"
+                                    class="form-control"
+                                    formControlName="zip">
+                        </div>
+
+                        <div class="row mb-2">
                             <label class="form-label">Dirección: </label>
                             <input type="text"
                                     class="form-control"
                                     formControlName="address">
                         </div>
+                        
+                        <div class="row">
+                            <label class="form-label">Información adicional (Casa, apto, etc): </label>
+                            <input type="text"
+                                    class="form-control"
+                                    formControlName="addressExtra">
+                        </div>
 
                         <div class="row">
-                            <div class="col cho-container">
-                                
-                            </div>
                             <div class="col">
                                 <button class="btn btn-primary mt-3 float-end"
                                         type="button"

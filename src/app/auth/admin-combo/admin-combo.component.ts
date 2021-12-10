@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Combo } from 'src/app/models/Combo';
 import { Product } from 'src/app/models/Product';
 import Swal from 'sweetalert2';
 import { CombosService } from '../../services/combos.service';
@@ -6,7 +7,12 @@ import { CombosService } from '../../services/combos.service';
 @Component({
   selector: 'app-admin-combo',
   templateUrl: './admin-combo.component.html',
-  styles: [
+  styles: [`
+    .header-combos {
+      display: flex;
+      justify-content: space-between
+    }
+  `
   ]
 })
 export class AdminComboComponent implements OnInit {
@@ -19,9 +25,13 @@ export class AdminComboComponent implements OnInit {
   price: number = 0;
   title: string = 'Combo Espectacular'; //default
 
+  combos: Combo[] = []
+  deleting: boolean = false;
+  comboRemoveId: any;
   constructor(private comboService: CombosService) { }
 
   ngOnInit(): void {
+    this.comboService.getCombos().subscribe(({combos}: any) => this.combos = combos)
   }
 
   onImageChange(target: any) {
@@ -61,8 +71,32 @@ export class AdminComboComponent implements OnInit {
     })
   }
 
-  removeCombo(id: string) {
+  deleteMode() {
+    this.deleting = this.deleting ? false : true;
+  }
 
+  removeCombo() {
+    if (!this.comboRemoveId) {
+      Swal.fire('Error', 'Seleccionar un combo para remover', 'error'); return
+    }
+    Swal.fire({
+      title: 'Eliminar Combo?',
+      text: `Estas a punto de eleminar el ${this.comboRemoveId.title}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.comboService.removeCombo(this.comboRemoveId!._id).subscribe((resp: any) => {
+          Swal.fire(
+            'Deleted!',
+            `${resp.msg}`,
+            'success'
+          );
+          this.comboRemoveId = undefined;
+        });
+      }
+    });
   }
 
 }

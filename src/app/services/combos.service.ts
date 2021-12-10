@@ -47,6 +47,11 @@ export class CombosService {
     )
   }
 
+  removeCombo(id: string) {
+    const url = `${baseUrl}/combos/${id}`;
+    return this.http.delete(url, this.admin.headers)
+  }
+
   addComboCart(comboData: any) {
     console.log(comboData)
     this.shopService.addProductCart(comboData)

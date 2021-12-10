@@ -35,7 +35,9 @@ export class CartComponent implements OnInit {
     phoneNumber: ['', [ Validators.required]],
     state: ['', Validators.required],
     city: ['', Validators.required],
-    address: ['', Validators.required]
+    zip: ['', Validators.required],
+    address: ['', Validators.required],
+    addressExtra:['']
   })
 
   selectedState!: String;
@@ -155,7 +157,9 @@ export class CartComponent implements OnInit {
       phoneNumber: this.orderForm.get('phoneNumber')?.value,
       state: this.orderForm.get('state')?.value,
       city: this.orderForm.get('city')?.value,
-      address: this.orderForm.get('address')?.value
+      zip_code: this.orderForm.get('zip')?.value,
+      address: this.orderForm.get('address')?.value,
+      addressExtraInfo: this.orderForm.get('addressExtra')
     }
     return [cartData, userData]
   }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
 import { CardModule } from 'primeng/card'
+import {TooltipModule} from 'primeng/tooltip';
 import { CartComponent } from './cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -15,9 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     FormsModule,
     CardModule,
-    ReactiveFormsModule
+    TooltipModule
   ],
   exports: [
     CartComponent
