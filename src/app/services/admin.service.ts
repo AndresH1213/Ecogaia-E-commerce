@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/User';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 const baseUrl = environment.baseUrl + '/auth'
 
@@ -15,7 +16,7 @@ export class AdminService {
   public user!: User;
 
   get token() {
-    return localStorage.getItem('token') || '';
+    return localStorage.getItem('tokenEGS') || '';
   }
 
   get headers() {
@@ -26,14 +27,15 @@ export class AdminService {
     }
   };
 
-  get role(): 'ADMINISTRATOR' | 'CLIENT' {
+  get getRole(): 'ADMINISTRATOR' | 'CLIENT' {
     return this.user.role!;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   saveLocalStorage(token: string ) {
-    localStorage.setItem('token', token)
+    localStorage.setItem('tokenEGS', token)
   }
 
   loginUser(formData: {email:string, password: string }) {
@@ -42,6 +44,11 @@ export class AdminService {
         this.saveLocalStorage(resp.token)
       })
     )
+  }
+
+  logOut() {
+    localStorage.removeItem('tokenEGS');
+    this.router.navigateByUrl('/')
   }
 
   validateToken() {
@@ -53,7 +60,6 @@ export class AdminService {
           uid
         } = data.user;
         this.user = new User(email, role, uid);
-        console.log(this.user)
         this.saveLocalStorage(data.token);
         return true
       }),

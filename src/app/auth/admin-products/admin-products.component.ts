@@ -4,6 +4,7 @@ import { Product } from 'src/app/models/Product';
 import Swal from 'sweetalert2';
 import { ProductsService } from '../../services/products.service';
 import { FileUploadService } from '../../services/file-upload.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -33,6 +34,7 @@ export class AdminProductsComponent implements OnInit {
   public tooltipImageStateText = 'Subir imagen desde PC';
 
   constructor(private fb: FormBuilder,
+              private admin: AdminService,
               private productService: ProductsService,
               private uploadFile: FileUploadService) { }
 
@@ -227,7 +229,10 @@ export class AdminProductsComponent implements OnInit {
     this.uploadFile.updatePhoto(file,'product', this.selectedProductID).then(resp => {
       Swal.fire('Success', `imagen con el nombre ${resp} agregada`, 'success')
     }).catch(err => Swal.fire('Ups', `Ocurrio el siguiente error: ${err} `, 'error'))
-    
+  }
+
+  logOut() {
+    this.admin.logOut()
   }
 
 }

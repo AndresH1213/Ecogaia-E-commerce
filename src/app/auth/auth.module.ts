@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import {DropdownModule} from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
@@ -23,6 +24,7 @@ import { AdminComboComponent } from './admin-combo/admin-combo.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     // PrimeNG
     DropdownModule,
     CardModule,

@@ -46,13 +46,13 @@
         <h3 *ngFor="let product of actualCombo.products">
             + {{ product.name }}
         </h3>
-        <div *ngIf="products.length > 0" class="characteristics-container"> 
-            <app-add-cart-input 
-                    *ngFor="let product of products" 
-                    (OutputValue)="characteristicsProducts[product.name] = $event" 
-                    [product]="product" [displayCart]="false"
-                    class="characteristic-data">
-            </app-add-cart-input>
+        <div *ngIf="products.length > 0" class="characteristics-container">
+            <div *ngFor="let product of products" class="characteristic-data">
+                <app-add-cart-input 
+                        (OutputValue)="characteristicsProducts[product.name] = $event" 
+                        [product]="product" [displayCart]="false" class="mt-2">
+                </app-add-cart-input>
+            </div> 
         </div>
 
     </section>

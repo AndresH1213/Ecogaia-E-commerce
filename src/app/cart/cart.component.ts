@@ -9,6 +9,7 @@ import { ShopService } from '../services/shop.service';
 import { Cart } from '../interfaces/product.interface';
 import { Product } from '../models/Product';
 import { Combo } from '../models/Combo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -46,7 +47,8 @@ export class CartComponent implements OnInit {
   loading: boolean = false;
   constructor(private fb: FormBuilder,
               private helper: HelpersService,
-              private shopService: ShopService) { }
+              private shopService: ShopService,
+              private router: Router) { }
   
   ngOnInit(): void {
     // lazyload of mercadopago libraries
@@ -108,12 +110,14 @@ export class CartComponent implements OnInit {
       const item: any = cart.products[i].item
       if (item.code) {
         const {_id, name, price, imageUrl, characteristics, code} = item
-        const productCart = new Product(_id,name,price,imageUrl,characteristics,code);
+        const productCart : any = new Product(_id,name,price,imageUrl,characteristics,code);
+        productCart.combo = false;
         this.products.push(productCart)
       }
       if (cart.products[i].combo) {
         const {_id, name, price, image, products } = item; 
-        const productCart = new Combo(_id, name, price, image, products )
+        const productCart : any = new Combo(_id, name, price, image, products )
+        productCart.combo = true;
         this.products.push(productCart)
       }
     }
@@ -142,10 +146,11 @@ export class CartComponent implements OnInit {
     const products = this.cart?.products.map(product => {
       let description = 'No description';
       if (product.characteristics) {
-        description = Object.values(product.characteristics).join(', ')
+        description = JSON.stringify(product.characteristics) 
       }
       return { productId: product.item._id, 
                quantity: product.cant,
+               combo: product.combo,  
                description }
     });
     const cartData = {
@@ -159,13 +164,12 @@ export class CartComponent implements OnInit {
       city: this.orderForm.get('city')?.value,
       zip_code: this.orderForm.get('zip')?.value,
       address: this.orderForm.get('address')?.value,
-      addressExtraInfo: this.orderForm.get('addressExtra')
+      addressExtraInfo: this.orderForm.get('addressExtra')?.value
     }
     return [cartData, userData]
   }
 
   confirm() {
-
     const [cartData, userData] = this.setOrderData();
     const orderData = {
       cartData,
@@ -174,11 +178,8 @@ export class CartComponent implements OnInit {
 
     this.shopService.postOrder(orderData).subscribe((resp: any) => {
       if (resp.ok) {
-        console.log(this.preferenceId, 'success')
+        window.open('//' + resp.init_point, "_blank")
       }
-      this.preferenceId = resp.preferenceId
-      console.log(this.preferenceId)
-      localStorage.setItem('preferenceId', this.preferenceId)
     });   
   }
 

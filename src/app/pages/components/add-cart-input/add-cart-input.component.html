@@ -3,7 +3,7 @@
 </p-dialog>
 <form class="product-properties form-group" [ngStyle]="{'grid-template-rows': styleGridRows}">
 
-    <h5 *ngIf="!displayCart" class="combo-product-name">{{ product.name}}</h5>
+    <h5 *ngIf="!displayCart && characteristicProperties.length > 0" class="combo-product-name">{{ product.name}}</h5>
     <div *ngFor="let propertyName of characteristicProperties" class="characteristic-product-container">
 
         <label [for]="propertyName" class="input-label characteristic-product-input">{{ propertyName | titlecase }}</label>

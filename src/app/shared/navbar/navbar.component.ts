@@ -3,6 +3,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
 import { ShopService } from '../../services/shop.service';
+import { AdminService } from '../../services/admin.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class NavbarComponent implements OnInit {
   
   title: string= 'ECOGAIA';
   subtitle: boolean = true;
-  itemsInCart: string = '0'
+  itemsInCart: string = '0';
+  role: string = ''
   
   constructor( private router: Router,
                private shopService: ShopService) {}
@@ -44,7 +46,6 @@ export class NavbarComponent implements OnInit {
       });
     
     this.itemsInCart = this.shopService.getCart?.products.length.toString() || '0'
-
     this.itemsMenu = [
       {
         label: 'Inicio',

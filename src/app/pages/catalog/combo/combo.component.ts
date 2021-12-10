@@ -51,8 +51,7 @@ export class ComboComponent implements OnInit {
     this.combosService.getOneCombo(this.title).subscribe((combo: Combo) => {
       this.actualCombo = combo;
       this.selectedData.item = this.actualCombo;
-      this.setCharacteristic()
-      console.log(this.characteristicsProducts, 'chars');
+      this.setCharacteristic();
     });
   }
 
@@ -98,6 +97,7 @@ export class ComboComponent implements OnInit {
     if (!this.selectedData.characteristics) {
       Swal.fire('Te falto algo', 'Escoge una caracteristica', 'info'); return
     }
+    this.selectedData.characteristics
     this.combosService.addComboCart(this.selectedData);
     this.displayDialog();
   }

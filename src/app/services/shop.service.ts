@@ -12,12 +12,7 @@ const baseUrl = environment.baseUrl
 export class ShopService {
 
   public cart: Cart | undefined;
-  private _preferenceId: string | undefined;
   constructor(private http: HttpClient) { }
-
-  get preferenceId() {
-    return this._preferenceId;
-  }
 
   get getCart() {
     if (localStorage.getItem('cart')) {
@@ -29,13 +24,7 @@ export class ShopService {
   postOrder(orderData: any) {
     const url = `${baseUrl}/shop/order`;
 
-    return this.http.post(url, orderData).pipe(
-      tap((resp: any) => {
-        if (resp.ok) {
-          this._preferenceId = resp.preferenceId
-        }
-      })
-    );
+    return this.http.post(url, orderData);
   }
 
   addProductCart(selectedData: ProductCart) {
