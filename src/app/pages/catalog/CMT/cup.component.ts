@@ -30,14 +30,6 @@ export class CupComponent implements OnInit {
     })
   }
 
-  onChange(value: any ) {
-    console.log(value)
-  }
-  
-  changeNum(event: any) {
-    console.log(event.target.value)
-  }
-
   scrolldown () {
     this.scrollIcon = false;
   }

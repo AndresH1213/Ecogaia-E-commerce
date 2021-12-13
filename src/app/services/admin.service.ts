@@ -5,8 +5,9 @@ import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/User';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { OrderResp } from '../interfaces/order-resp.interface';
 
-const baseUrl = environment.baseUrl + '/auth'
+const baseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class AdminService {
   }
 
   loginUser(formData: {email:string, password: string }) {
-    return this.http.post(`${baseUrl}/login`, formData ).pipe(
+    return this.http.post(`${baseUrl}/auth/login`, formData ).pipe(
       tap((resp: any) => {
         this.saveLocalStorage(resp.token)
       })
@@ -51,8 +52,18 @@ export class AdminService {
     this.router.navigateByUrl('/')
   }
 
+  getAllOrders() {
+    const url = `${baseUrl}/shop/orders`;
+    return this.http.get<OrderResp>(url, this.headers ).pipe(
+      map(resp => {
+        return resp.orders
+      }),
+      catchError(err => err.msg)
+    )
+  }
+
   validateToken() {
-    return this.http.get(`${baseUrl}/renew`, this.headers).pipe(
+    return this.http.get(`${baseUrl}/auth/renew`, this.headers).pipe(
       map( (data: any)  => {
         const {
           email,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CombosService } from '../../../services/combos.service';
-import { Combo } from '../../../models/Combo';
+
 
 @Component({
   selector: 'app-combos-link',
@@ -18,7 +18,8 @@ export class CombosLinkComponent implements OnInit {
         const route = `/combo/${combo.title}`
         this.routesLinkCombos.push(route)
       })
-    })
+    });
   }
 
 }
+

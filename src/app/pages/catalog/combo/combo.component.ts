@@ -48,7 +48,7 @@ export class ComboComponent implements OnInit {
       }
       this.setPagination()
     })
-    this.combosService.getOneCombo(this.title).subscribe((combo: Combo) => {
+    this.combosService.getOneCombo('title',this.title).subscribe((combo: Combo) => {
       this.actualCombo = combo;
       this.selectedData.item = this.actualCombo;
       this.setCharacteristic();

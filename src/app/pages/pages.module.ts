@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import {DividerModule} from 'primeng/divider';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -17,6 +19,7 @@ import { PagesComponent } from './pages.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CombosLinkComponent } from './components/combos-link/combos-link.component';
+import { SucessComponent } from './sucess/sucess.component';
 
 @NgModule({
   declarations: [
@@ -27,15 +30,19 @@ import { CombosLinkComponent } from './components/combos-link/combos-link.compon
     PagesComponent,
     OrdersComponent,
     CombosLinkComponent,
+    SucessComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
 
     CardModule,
     DropdownModule,
     CarouselModule,
+    ButtonModule,
+    DividerModule,
 
     SharedModule
   ],

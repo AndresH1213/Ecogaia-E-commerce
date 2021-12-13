@@ -1,60 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { ShopService } from '../../services/shop.service';
-import { CombosService } from '../../services/combos.service';
+import { AdminService } from '../../services/admin.service';
 import { ProductsService } from '../../services/products.service';
+import { CombosService } from '../../services/combos.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
+  selector: 'app-admin-orders',
+  templateUrl: './admin-orders.component.html',
   styles: [
-    `
-      .search-msg {
-        font-size: 16px;
-        padding-bottom: 0px
-      }
-      .input-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .search-container {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      @media screen and (min-width: 1024px) {
-        .search-msg {
-          font-size: 22px
-        }
-      }
-    `,
-  ],
+  ]
 })
-export class OrdersComponent implements OnInit {
-  ordersTest: any[] = []
-  orders: any[] = [];
-  hits = 0;
-  
+export class AdminOrdersComponent implements OnInit {
 
-  public queryParam: any= "";
+  orders : any = []
   public prodsToShow: any = []
   public showMore: boolean = false;
   public showMoreOrder: any;
-  constructor(private shopService: ShopService,
-              private comboService: CombosService,
-              private productService: ProductsService) {}
+
+  constructor(private adminService: AdminService,
+              private productService: ProductsService,
+              private comboService: CombosService) { }
 
   ngOnInit(): void {
-  }
-
-  search() {
-    this.shopService.getOrder('email',this.queryParam).subscribe((resp: any) => {
-      this.hits = resp.hits
-      this.orders = resp.orders.map((order: any) => {
-        const {orderNumber, totalPrice, orderDate, shippingAddress} = order
+    this.adminService.getAllOrders().subscribe((orders: any) => {
+      console.log(orders)
+      this.orders = orders.map((order: any) => {
+        const {orderNumber, totalPrice, orderDate, shippingAddress, delivered, payment} = order;
         const address = `${shippingAddress.state}, ${shippingAddress.city} - ${shippingAddress.address}`
         let products = order.cart.map((prod:any) => ({product: prod.product, type: prod.onModel, quantity: prod.quantity}))        
-        return {orderNumber, products, totalPrice, orderDate, address }
-      });
+        return {orderNumber, products, totalPrice, delivered, payment, orderDate, address }
+      })
+      console.log(this.orders)
     })
   }
 
@@ -97,4 +72,5 @@ export class OrdersComponent implements OnInit {
       return true;
     }
   }
+
 }

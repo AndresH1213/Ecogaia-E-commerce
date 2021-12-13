@@ -10,6 +10,7 @@ import { LogInComponent } from './auth/log-in/log-in.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AdminProductsComponent } from './auth/admin-products/admin-products.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AdminOrdersComponent } from "./auth/admin-orders/admin-orders.component";
 
 const routes: Routes = [
     {
@@ -23,6 +24,12 @@ const routes: Routes = [
     {
         path: 'admin/products',
         component: AdminProductsComponent,
+        canActivate: [AdminGuard],
+        canLoad: [AdminGuard]
+    },
+    {
+        path: 'admin/orders',
+        component: AdminOrdersComponent,
         canActivate: [AdminGuard],
         canLoad: [AdminGuard]
     },

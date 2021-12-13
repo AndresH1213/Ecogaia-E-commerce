@@ -123,15 +123,6 @@ export class CartComponent implements OnInit {
     }
   }
 
-  saveClient() {
-    const saveClientdata = {
-      email: this.orderForm.get('email')?.value,
-      cart: this.cart,
-      order: 'orderID'
-    }
-    this.shopService.saveClient(saveClientdata).subscribe(console.log)
-  }
-
   changeCantProduct(index: number, value: 1 | -1) {
     const findProduct = this.cart?.products[index];
     if (findProduct?.cant === 1 && value !== 1) {
@@ -178,7 +169,7 @@ export class CartComponent implements OnInit {
 
     this.shopService.postOrder(orderData).subscribe((resp: any) => {
       if (resp.ok) {
-        window.open('//' + resp.init_point, "_blank")
+        window.open(resp.init_point)
       }
     });   
   }

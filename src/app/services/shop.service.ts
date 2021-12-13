@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
 import { Cart, ProductCart } from '../interfaces/product.interface';
+import { Observable } from 'rxjs';
+import { OrderResp } from '../interfaces/order-resp.interface';
 
-const baseUrl = environment.baseUrl
+const baseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class ShopService {
       this.cart = JSON.parse(localStorage.getItem('cart')!)
     }
     return this.cart;
+  }
+
+  getOrder(query: string, value:string): Observable<OrderResp> {
+    const url = `${baseUrl}/shop/order?${query}=${value}`;
+    return this.http.get<OrderResp>(url)
   }
 
   postOrder(orderData: any) {
@@ -100,10 +106,5 @@ export class ShopService {
     } 
     return false
   }
-  
-  saveClient(clientData: any) {
-    const url = `${baseUrl}/shop/client`;
 
-    return this.http.post(url, clientData)
-  }
 }

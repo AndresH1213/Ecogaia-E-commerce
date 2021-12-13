@@ -37,8 +37,8 @@ export class CombosService {
     return this.http.get(url)
   }
 
-  getOneCombo(title: string) {
-    const url = `${baseUrl}/combos/one?title=${title}`;
+  getOneCombo(query: string,value: string) {
+    const url = `${baseUrl}/combos/one?${query}=${value}`;
     return this.http.get<ResponseCombo>(url).pipe(
       map(({combo}: any) => {
         const comboInstance = new Combo(combo._id,combo.title,combo.price,combo.image,combo.products);
@@ -49,7 +49,8 @@ export class CombosService {
 
   removeCombo(id: string) {
     const url = `${baseUrl}/combos/${id}`;
-    return this.http.delete(url, this.admin.headers)
+    console.log(this.admin.headers)
+    return this.http.patch(url, 'nothing',this.admin.headers)
   }
 
   addComboCart(comboData: any) {

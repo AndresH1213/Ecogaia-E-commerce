@@ -11,6 +11,7 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { ButtonModule } from 'primeng/button';
 import {TooltipModule} from 'primeng/tooltip';
 import { AdminComboComponent } from './admin-combo/admin-combo.component';
+import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 
 
 
@@ -18,7 +19,8 @@ import { AdminComboComponent } from './admin-combo/admin-combo.component';
   declarations: [
     LogInComponent,
     AdminProductsComponent,
-    AdminComboComponent
+    AdminComboComponent,
+    AdminOrdersComponent
   ],
   imports: [
     CommonModule,

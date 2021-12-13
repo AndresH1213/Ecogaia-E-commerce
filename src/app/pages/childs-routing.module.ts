@@ -6,6 +6,7 @@ import { ProductsComponent } from './products/products.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ComboComponent } from './catalog/combo/combo.component';
+import { SucessComponent } from './sucess/sucess.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'combo/:title', component: ComboComponent},
   { path: 'orders', component: OrdersComponent },
   { path: 'about-us', component: AboutUsComponent },
+  { path: 'success', component: SucessComponent },
 
 ]
 
