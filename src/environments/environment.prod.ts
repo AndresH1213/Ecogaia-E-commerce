@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://ecogaiatest.herokuapp.com/api'
+  baseUrl: 'http://143.198.236.202/api'
 };

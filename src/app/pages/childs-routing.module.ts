@@ -6,7 +6,8 @@ import { ProductsComponent } from './products/products.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ComboComponent } from './catalog/combo/combo.component';
-import { SucessComponent } from './sucess/sucess.component';
+import { SucessComponent } from './webhooks/sucess/sucess.component';
+import { FailedComponent } from './webhooks/failed/failed.component';
 
 const routes: Routes = [
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'success', component: SucessComponent },
+  { path: 'failure', component: FailedComponent },
 
 ]
 

@@ -30,7 +30,7 @@
 
     /* For very Large devices */
 	@media screen and (min-width: 1024px) {
-		:root {
+		:host {
 			/* font */
 			--font-size-lg: 2rem;
 			--font-size-md: 1.5rem; 

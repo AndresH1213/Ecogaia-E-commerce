@@ -19,7 +19,8 @@ import { PagesComponent } from './pages.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CombosLinkComponent } from './components/combos-link/combos-link.component';
-import { SucessComponent } from './sucess/sucess.component';
+import { SucessComponent } from './webhooks/sucess/sucess.component';
+import { FailedComponent } from './webhooks/failed/failed.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SucessComponent } from './sucess/sucess.component';
     OrdersComponent,
     CombosLinkComponent,
     SucessComponent,
+    FailedComponent,
   ],
   imports: [
     CommonModule,

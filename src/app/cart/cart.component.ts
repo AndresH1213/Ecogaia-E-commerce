@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap, tap } from 'rxjs/operators';
-import { get } from 'scriptjs'
 import { User } from '../models/User';
 
 import { HelpersService } from '../services/helpers.service';
@@ -51,12 +50,8 @@ export class CartComponent implements OnInit {
               private router: Router) { }
   
   ngOnInit(): void {
-    // lazyload of mercadopago libraries
-    get("https://sdk.mercadopago.com/js/v2", () => {
-      //library has been loaded...
-    });
 
-    this.states = ['Amazonas','Antioquia','Arauca','Atlántico','Bolivar','Caldas','Caquetá','Casanare','Cauca','Cesar','Chocó',
+    this.states = ['Amazonas','Antioquia','Arauca','Atlántico','Bolívar','Caldas','Caquetá','Casanare','Cauca','Cesar','Chocó',
     'Córdoba','Cundinamarca','Guainía','La Guajira','Guaviare','Huila','Magdalena','Meta','Norte de Santander','Nariño','Putumayo',
     'Quindío','Risaralda','San Andrés','Santander','Sucre','Tolima','Valle del Cauca','Vaupés','Vichada']
 
