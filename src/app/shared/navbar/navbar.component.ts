@@ -3,7 +3,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
 import { ShopService } from '../../services/shop.service';
-import { AdminService } from '../../services/admin.service';
+import { CombosService } from 'src/app/services/combos.service';
 
 
 @Component({
@@ -17,13 +17,22 @@ export class NavbarComponent implements OnInit {
   subtitle: boolean = true;
   itemsInCart: string = '0';
   role: string = ''
+
+  public comboRoute = ''
   
   constructor( private router: Router,
-               private shopService: ShopService) {}
+               private shopService: ShopService,
+               private comboService: CombosService) {}
 
   itemsMenu!: MenuItem[];
 
   ngOnInit(): void {
+    
+    this.comboService.getFirstRoute().subscribe(route => {
+      this.comboRoute = route;
+      this.setRoutesDDMenu();
+    });
+    
     // Change the title of the navbar depending on the route
     this.router.events.pipe(
       filter<any>(e => e instanceof NavigationEnd),
@@ -44,7 +53,10 @@ export class NavbarComponent implements OnInit {
     ).subscribe(data => {
         this.title = data
       });
-    
+  }
+
+  setRoutesDDMenu() {
+        
     this.itemsInCart = this.shopService.getCart?.products.length.toString() || '0'
     this.itemsMenu = [
       {
@@ -56,6 +68,11 @@ export class NavbarComponent implements OnInit {
         label: 'Productos',
         icon: 'pi pi-fw pi-slack',
         routerLink: '/products'
+      },
+      {
+        label: 'Combos',
+        icon: 'pi pi-fw pi-slack',
+        routerLink: this.comboRoute
       },
       {
         label: 'Ordenes',

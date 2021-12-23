@@ -32,6 +32,19 @@ export class CombosService {
     return this.http.post(url, formData, this.admin.headers)
   }
 
+  getFirstRoute() {
+    const url = `${baseUrl}/combos`
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        if (resp.ok) {
+          const url = `/combo/${resp.combos[0].title}`
+          return url
+        }
+        return resp.msg
+      })
+    )
+  }
+
   getCombos() {
     const url = `${baseUrl}/combos`;
     return this.http.get(url)
