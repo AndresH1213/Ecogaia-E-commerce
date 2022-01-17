@@ -25,6 +25,15 @@
     width: 20vh;
 }
 
+.cart_logo--mp {
+    width: max-content;
+    margin-left: auto;
+
+}
+.cart_logo--mp img {
+    width: 40vw;
+}
+
 .characteristics-tags {
     border: 3px lightblue solid;
     margin: auto;

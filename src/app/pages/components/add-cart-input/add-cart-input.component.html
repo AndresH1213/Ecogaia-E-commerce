@@ -12,7 +12,7 @@
                 (ngModelChange)="changeValueProp(propertyName,$event)"
                 name="propertyName">
             <option value="">Selecccione {{ propertyName | lowercase }}...</option>
-            <option *ngFor="let type of product.characteristics[propertyName]"
+            <option *ngFor="let type of productCharacteristics[propertyName]"
                     [value]="type"
                     class="input-property"
                     >{{ type }}</option>

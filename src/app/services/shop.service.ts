@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Cart, ProductCart } from '../interfaces/product.interface';
-import { Observable } from 'rxjs';
-import { OrderResp } from '../interfaces/order-resp.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { OrderResp, Product } from '../interfaces/order-resp.interface';
 
 const baseUrl = environment.baseUrl;
 
@@ -13,6 +13,9 @@ const baseUrl = environment.baseUrl;
 export class ShopService {
 
   public cart: Cart | undefined;
+  private itemsInCart = new BehaviorSubject<ProductCart[]>(this.getCart?.products || []);
+  itemsInCart$ = this.itemsInCart.asObservable();
+
   constructor(private http: HttpClient) { }
 
   get getCart() {
@@ -44,37 +47,39 @@ export class ShopService {
     // If there is no cart create the cart
     if (!this.getCart) {
       const totalValue = newProduct.price * newCant
+      const productObject: ProductCart = {
+        item: newProduct,
+        cant: newCant,
+        characteristics : newCharacteristics,
+        combo: selectedData.combo
+      }
       newCartData = {
-        products: [{
-          item: newProduct,
-          cant: newCant,
-          characteristics : newCharacteristics,
-          combo: selectedData.combo
-        }],
+        products: [productObject],
         totalValue
       }
       const cartDataStringify = JSON.stringify(newCartData);
       localStorage.setItem('cart', cartDataStringify);
+      this.itemsInCart.next(this.getCart!.products)
       return
     }
     // Search for products that are already in the cart, the match has to be in _id and characteristics
     const oldCartProducts = this.getCart.products.map(product => product.item._id);
-    const matchProducIndex = newCartData!.products.findIndex(({item, characteristics}) => {
+    const matchProductIndex = newCartData!.products.findIndex(({item, characteristics}) => {
       return item._id === newProduct._id && 
              JSON.stringify(characteristics) === JSON.stringify(newCharacteristics)
     });
     // If theres already that product (with the same characteristics) in the cart upload it
-    if (oldCartProducts.includes(newProduct._id) && matchProducIndex >= 0) {
+    if (oldCartProducts.includes(newProduct._id) && matchProductIndex >= 0) {
       // found the product in cart and put the new quantity/cant
-      const productInCart = newCartData?.products[matchProducIndex];
+      const productInCart = newCartData?.products[matchProductIndex];
       productInCart!.cant += newCant;
       // replace again and change the totalValue of the cart
-      newCartData?.products.splice(matchProducIndex, 1, productInCart!);
+      newCartData?.products.splice(matchProductIndex, 1, productInCart!);
       newCartData!.totalValue += newProduct.price * newCant
 
       // save cart
-      const newCartDataStringity = JSON.stringify(newCartData);
-      localStorage.setItem('cart', newCartDataStringity);
+      const newCartDataStringify = JSON.stringify(newCartData);
+      localStorage.setItem('cart', newCartDataStringify);
       return
     }
     // if the new product hasn't found in the cart push it to the cart and change totalValue
@@ -87,6 +92,7 @@ export class ShopService {
     newCartData!.totalValue += newProduct.price * newCant;
     const newCartDataStringity = JSON.stringify(newCartData);
     localStorage.setItem('cart', newCartDataStringity);
+    this.itemsInCart.next(this.getCart!.products)
   }
   
 

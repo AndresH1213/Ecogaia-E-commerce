@@ -25,7 +25,6 @@ export class CartComponent implements OnInit {
   public products: (Product | Combo)[] = [];
   public characteristicTags : string[] = [];
 
-
   public preferenceId: any;
 
   public user!: User;

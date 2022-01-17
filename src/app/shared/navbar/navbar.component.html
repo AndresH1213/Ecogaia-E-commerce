@@ -13,7 +13,7 @@
         </p-menu>
         <button class="navbar-button" type="button" pButton icon="pi pi-list" label="Menu" (click)="menu.toggle($event)"></button>
         <button class="navbar-button button-cart" routerLink="/cart">
-            <i class="uil uil-shopping-cart-alt" pBadge [value]="itemsInCart" severity="danger"></i>
+            <i class="uil uil-shopping-cart-alt" pBadge [value]="itemsInCart.length.toString()" severity="danger"></i>
         </button>
     </div>
 </nav>

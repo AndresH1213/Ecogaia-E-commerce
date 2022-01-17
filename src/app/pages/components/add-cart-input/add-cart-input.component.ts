@@ -18,6 +18,8 @@ export class AddCartInputComponent implements OnInit {
   
   @Output() OutputValue: EventEmitter<any> = new EventEmitter(); 
 
+  public productCharacteristics: any;
+
   rangeCantControl = new FormControl("", [Validators.max(20), Validators.min(1)])
 
   characteristicProperties: string[] = []
@@ -37,8 +39,10 @@ export class AddCartInputComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.product.characteristics) {
+      this.productCharacteristics = {...this.product.characteristics}
       this.characteristicProperties = Object.keys(this.product.characteristics);
     }
+    // setting earch property as a key of the object
     this.characteristicProperties.forEach(property => {
       this.valuesProperties[property] = ''
     });
@@ -61,6 +65,12 @@ export class AddCartInputComponent implements OnInit {
   }
 
   changeValueProp(key: any,value: string) {
+    this.productCharacteristics = {...this.product.characteristics}
+    // hard code tooth brush product exception
+    if (this.product.name === 'Cepillo Dental de Bambú' && value !== 'blanco') {
+      this.productCharacteristics['dureza'] = ['cerdas normales']
+    }
+    
     this.selectedData.characteristics = this.valuesProperties;
     this.OutputValue.emit(this.selectedData.characteristics)
   }

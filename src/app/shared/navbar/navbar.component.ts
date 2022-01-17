@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs/operators';
 import { ShopService } from '../../services/shop.service';
 import { CombosService } from 'src/app/services/combos.service';
+import { ProductCart } from '../../interfaces/product.interface';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   
   title: string= 'ECOGAIA';
   subtitle: boolean = true;
-  itemsInCart: string = '0';
+  itemsInCart: ProductCart[] = [];
   role: string = ''
 
   public comboRoute = ''
@@ -57,7 +58,7 @@ export class NavbarComponent implements OnInit {
 
   setRoutesDDMenu() {
         
-    this.itemsInCart = this.shopService.getCart?.products.length.toString() || '0'
+    this.shopService.itemsInCart$.subscribe(value => this.itemsInCart = value)
     this.itemsMenu = [
       {
         label: 'Inicio',
