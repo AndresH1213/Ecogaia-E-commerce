@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { interval } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment-process',
@@ -29,29 +29,36 @@ import { interval } from 'rxjs';
   `
   ]
 })
-export class PaymentProcessComponent implements OnInit {
+export class PaymentProcessComponent implements OnInit, OnDestroy {
 
   public counter = 15;
   public status = ''
   public preferenceId = ''
   public orderNumber = ''
-  public interval$: any = interval(1000);
+  public interval$: Observable<number> = interval(1000);
+  public subscription: Subscription | undefined
+
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((resp:any) => {
-      console.log(resp)
+
       this.status = resp.collection_status
       this.preferenceId = resp.preference_id
     })
-    this.interval$.subscribe((value: any) => {
+    this.subscription = this.interval$.subscribe((value: any) => {
       this.counter = 15 - value;
       if (this.counter === 0) {
-        // this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/')
       }
-    });
-    
+    },
+    (error) => {alert(error)}
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
 }
